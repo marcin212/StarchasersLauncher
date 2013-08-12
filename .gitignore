@@ -1,3 +1,4 @@
+
 #################
 ## Eclipse
 #################
@@ -17,6 +18,8 @@ local.properties
 .loadpath
 starchasers/
 !StarchasersLauncher\src\pl\starchasers
+
+
 .properties
 # External tool builders
 .externalToolBuilders/
@@ -29,8 +32,6 @@ starchasers/
 
 # PDT-specific
 .buildpath
-
-
 
 *.class
 
