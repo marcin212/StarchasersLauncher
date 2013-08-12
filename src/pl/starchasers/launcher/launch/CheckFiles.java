@@ -79,11 +79,11 @@ public class CheckFiles {
 				}
 				String osname = System.getProperty("os.name"), nativesString = null;
 				if (osname.toLowerCase().contains("windows")) {
-					nativesString = "natives_windows";
+					nativesString = "natives-windows";
 				} else if (osname.toLowerCase().contains("linux")) {
-					nativesString = "natives_linux";
+					nativesString = "natives-linux";
 				} else if (osname.toLowerCase().contains("os")) {
-					nativesString = "natives_osx";
+					nativesString = "natives-osx";
 				} else {
 					Object[] offlineButton = { "Windows", "Linux", "OS X" };
 					int n = JOptionPane
@@ -96,13 +96,13 @@ public class CheckFiles {
 									offlineButton, offlineButton[0]);
 					switch (n) {
 					case 0:
-						nativesString = "natives_windows";
+						nativesString = "natives-windows";
 						break;
 					case 1:
-						nativesString = "natives_linux";
+						nativesString = "natives-linux";
 						break;
 					case 2:
-						nativesString = "natives_osx";
+						nativesString = "natives-osx";
 						break;
 					}
 				}
@@ -111,22 +111,28 @@ public class CheckFiles {
 						+ "/" + parts[2] + "/";
 				File f2 = new File(".\\starchasers\\minecraft\\bin\\natives\\"
 						+ dlpath);
+				System.out.print("--1--->"+dlpath);
 				if (!f2.exists()) {
 					f2.mkdirs();
 				}
+				String dlpath2 = dlpath+".";
 				dlpath += parts[1] + "-" + parts[2] + "-" + nativesString
 						+ ".jar";
+				System.out.print("--2--->"+dlpath);
+				System.out.print("--3--->"+dlpath2);
+				//dlpath += "/";
 				try {
 
 					Http.download(
 							"https://s3.amazonaws.com/Minecraft.Download/libraries/"
 									+ dlpath,
 							".\\starchasers\\minecraft\\bin\\natives\\"
-									+ dlpath);
-					String name = ".\\starchasers\\minecraft\\bin\\natives\\"
+									+ dlpath2);
+					String name = "./starchasers/minecraft/bin/natives/"
 							+ dlpath;
-					FileUtils.unzipNatives(name,
-							".\\starchasers\\minecraft\\bin\\natives\\");
+					System.out.print("--4--->"+name);
+					FileUtils.extractFolder(name,".\\starchasers\\minecraft\\bin\\natives\\");
+					//(name,".\\starchasers\\minecraft\\bin\\natives\\");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
