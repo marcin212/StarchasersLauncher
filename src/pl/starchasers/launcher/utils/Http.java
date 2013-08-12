@@ -13,8 +13,6 @@ public class Http {
 	public static boolean exists(String url) {
 		try {
 			HttpURLConnection.setFollowRedirects(false);
-			// note : you may also need
-			// HttpURLConnection.setInstanceFollowRedirects(false)
 			HttpURLConnection con = (HttpURLConnection) new URL(url)
 					.openConnection();
 			con.setRequestMethod("HEAD");

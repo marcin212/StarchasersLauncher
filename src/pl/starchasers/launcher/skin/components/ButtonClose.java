@@ -2,6 +2,8 @@ package pl.starchasers.launcher.skin.components;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class ButtonClose extends MyButton{
@@ -36,7 +38,8 @@ public class ButtonClose extends MyButton{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setIcon(getUpIcon());
-				MyFrame.instance.dispose();
+				Config.instance.store(Variable.workingDir + "starchasers.properties");
+				System.exit(0);
 			}
 		});
 	}

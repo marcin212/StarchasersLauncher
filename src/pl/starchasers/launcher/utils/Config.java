@@ -10,7 +10,9 @@ import java.util.UUID;
 
 public class Config extends Properties{
 	private static final long serialVersionUID = 1L;
+	public static Config instance;
 	public Config(String path) {
+		instance = this;
 		this.putAll(DefConfig());
 		File f = new File(path);
 		if (f.exists() && f.isFile()) {
@@ -48,9 +50,6 @@ public class Config extends Properties{
 		p.setProperty("nickname","");
 		p.setProperty("rememberPass", "false");
 		return p;
-	}
-	public static void SaveConfig() {
-
 	}
 	public void setPropertyInt(String key, int value) {
 		this.setProperty(key, Integer.toString(value));

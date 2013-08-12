@@ -4,10 +4,12 @@ import com.google.gson.Gson;
 
 
 public class MinecraftJson {
+	public static MinecraftJson instance;
 	public final String urlVersion = "http://s3.amazonaws.com/Minecraft.Download/versions/versions.json";
 	private Versions obj;
 	private final String urlFiles = "https://s3.amazonaws.com/Minecraft.Download/versions/";
 	public MinecraftJson(){
+		instance = this;
 		Gson gson = new Gson();
 		String json = Http.excuteGet(urlVersion);
 		obj = gson.fromJson(json,Versions.class);
