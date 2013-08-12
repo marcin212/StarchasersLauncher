@@ -16,7 +16,8 @@ local.properties
 .settings/
 .loadpath
 starchasers/
-
+!StarchasersLauncher\src\pl\starchasers
+.properties
 # External tool builders
 .externalToolBuilders/
 

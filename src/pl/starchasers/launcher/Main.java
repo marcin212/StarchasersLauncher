@@ -2,7 +2,6 @@ package pl.starchasers.launcher;
 
 import java.io.File;
 
-import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.skin.frame.MainFrame;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Console;
