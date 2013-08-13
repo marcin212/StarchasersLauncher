@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import pl.starchasers.launcher.skin.components.LoginTextField;
-import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.Version;
