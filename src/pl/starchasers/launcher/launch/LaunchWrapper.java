@@ -33,13 +33,20 @@ public class LaunchWrapper {
 			String lib = libparts[0].replace(".", "\\") + "\\" + libparts[1] + "\\" + libparts[2] + "\\" + libparts[1] + "-" + libparts[2] + ".jar";
 			libsString += ".\\starchasers\\minecraft\\libraries\\" + lib + ";";
 		}
-		libsString += ".\\starchasers\\minecraft\\bin\\minecraft.jar net.minecraft.client.main.Main";
+		
+		libsString += ".\\starchasers\\minecraft\\libraries\\"+"org\\ow2\\asm\\asm-all\\4.1\\asm-all-4.1.jar;";	
+		libsString += ".\\starchasers\\minecraft\\libraries\\"+"lzma\\lzma\\0.0.1\\lzma-0.0.1.jar;";
+		libsString += ".\\starchasers\\minecraft\\libraries\\"+"net\\minecraft\\launchwrapper\\1.3\\launchwrapper-1.3.jar;";
+		libsString += ".\\starchasers\\minecraft\\libraries\\"+"net\\minecraftforge\\minecraftforge\\9.10.0.828\\minecraftforge-9.10.0.828.jar;";	
+		libsString += ".\\starchasers\\minecraft\\bin\\minecraft.jar net.minecraft.launchwrapper.Launch";//net.minecraft.client.main.Main";
 		args.add(" -cp " + libsString);
 		args.add(" --username " + LoginTextField.instance.getText());
 		args.add(" --session " + token);
 		args.add(" --version 1.6.2");
 		args.add(" --gameDir .\\starchasers\\minecraft\\");
 		args.add(" --assetsDir .\\starchasers\\minecraft\\assets");
+		
+		args.add(" --tweakClass cpw.mods.fml.common.launcher.FMLTweaker");
 		/*String args ="javaw -XX:MaxPermSize="
 				+ Config.instance.getProperty("PermGen")
 				+ " -Xms"
@@ -57,6 +64,7 @@ public class LaunchWrapper {
 		for(String s : args){
 			args2 += s;
 		}
+		System.out.println(args2);
 		try {
 			final Process p = r.exec(args2);
 			MyFrame.instance.setVisible(false);

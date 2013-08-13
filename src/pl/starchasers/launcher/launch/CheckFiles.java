@@ -13,6 +13,7 @@ import pl.starchasers.launcher.utils.json.MinecraftJson;
 
 public class CheckFiles {
 	CheckFiles() {
+		
 		File f = new File(".\\starchasers\\minecraft\\bin");
 		if (!f.exists()) {
 			f.mkdirs();
@@ -25,8 +26,31 @@ public class CheckFiles {
 					.getObjForVersion("1.6.2").getLibraries();
 			downloadLibraries(libraries);
 		}
+		downloadForge();
 	}
 
+	private void downloadForge(){
+		try{
+			File f = new File(".\\starchasers\\minecraft\\libraries\\"+"org\\ow2\\asm\\asm-all\\4.1\\");
+			if (!f.exists()) f.mkdirs();
+			f = new File(".\\starchasers\\minecraft\\libraries\\"+"lzma\\lzma\\0.0.1\\");
+			if (!f.exists()) f.mkdirs();
+			f = new File(".\\starchasers\\minecraft\\libraries\\"+"net\\minecraft\\launchwrapper\\1.3\\");
+			if (!f.exists()) f.mkdirs();
+			f = new File(".\\starchasers\\minecraft\\libraries\\"+"net\\minecraftforge\\minecraftforge\\9.10.0.828\\");
+			if (!f.exists()) f.mkdirs();
+		Http.download("http://176.9.140.54/starchasers/starchasers/minecraft/forge/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar",
+				"./starchasers/minecraft/libraries/"+"org/ow2/asm/asm-all/4.1");
+		Http.download("http://176.9.140.54/starchasers/starchasers/minecraft/forge/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar",
+				"./starchasers/minecraft/libraries/"+"lzma/lzma/0.0.1");
+		Http.download("http://176.9.140.54/starchasers/starchasers/minecraft/forge/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar",
+				"./starchasers/minecraft/libraries/"+"net/minecraft/launchwrapper/1.3");
+		Http.download("http://176.9.140.54/starchasers/starchasers/minecraft/forge/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-9.10.0.828.jar",
+				"./starchasers/minecraft/libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		}
 	private void downloadBin() {
 		try {
 			Http.download(

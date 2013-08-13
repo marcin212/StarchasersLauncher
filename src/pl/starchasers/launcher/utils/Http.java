@@ -29,7 +29,7 @@ public class Http {
 		URL url = new URL(fileURL);
 		InputStream is = url.openStream();
 		FileOutputStream fos = new FileOutputStream(destinationDirectory + "/"
-				+ downloadedFileName);
+				+ downloadedFileName.replace("%20", " "));
 		byte[] buffer = new byte[4096];
 		int bytesRead = 0;
 		while ((bytesRead = is.read(buffer)) != -1) {
