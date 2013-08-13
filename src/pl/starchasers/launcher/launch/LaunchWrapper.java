@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import pl.starchasers.launcher.skin.components.LoginTextField;
+import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.Version;
@@ -58,6 +59,7 @@ public class LaunchWrapper {
 		}
 		try {
 			final Process p = r.exec(args2);
+			MyFrame.instance.setVisible(false);
 			final BufferedReader stderr = new BufferedReader(
 					new InputStreamReader(p.getErrorStream()));
 			final BufferedReader stdout = new BufferedReader(

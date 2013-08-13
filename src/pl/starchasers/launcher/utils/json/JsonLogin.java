@@ -2,6 +2,7 @@ package pl.starchasers.launcher.utils.json;
 
 public class JsonLogin {
 	private Agent agent = new Agent();
+	@SuppressWarnings("unused")
 	private String clientToken, password, username;
 
 	public Agent getAgent() {

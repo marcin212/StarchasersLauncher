@@ -41,6 +41,7 @@ public class FileUtils {
 		}
 	}
 	public static void unzipNatives(String filePath, String unzipPath) {
+		@SuppressWarnings("rawtypes")
 		Enumeration entries;
 		ZipFile zipFile;
 		BufferedOutputStream out = null;
@@ -78,7 +79,8 @@ public class FileUtils {
 	    //String newPath = zipFile.substring(0, zipFile.length() - 4);
 
 	    new File(newPath).mkdir();
-	    Enumeration zipFileEntries = zip.entries();
+	    @SuppressWarnings("rawtypes")
+		Enumeration zipFileEntries = zip.entries();
 
 	    // Process each entry
 	    while (zipFileEntries.hasMoreElements())
@@ -121,6 +123,7 @@ public class FileUtils {
 	            extractFolder(destFile.getAbsolutePath(),newPath);
 	        }
 	    }
+	    zip.close();
 	}
 	
 	

@@ -118,9 +118,6 @@ public class CheckFiles {
 				String dlpath2 = dlpath+".";
 				dlpath += parts[1] + "-" + parts[2] + "-" + nativesString
 						+ ".jar";
-				System.out.print("--2--->"+dlpath);
-				System.out.print("--3--->"+dlpath2);
-				//dlpath += "/";
 				try {
 
 					Http.download(
@@ -130,9 +127,7 @@ public class CheckFiles {
 									+ dlpath2);
 					String name = "./starchasers/minecraft/bin/natives/"
 							+ dlpath;
-					System.out.print("--4--->"+name);
 					FileUtils.extractFolder(name,".\\starchasers\\minecraft\\bin\\natives\\");
-					//(name,".\\starchasers\\minecraft\\bin\\natives\\");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

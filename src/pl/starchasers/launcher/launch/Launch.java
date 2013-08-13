@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 public class Launch {
 	public String token = "";
+	@SuppressWarnings("deprecation")
 	public Launch(){
 		Gson gson = new Gson();
 		JsonLogin payload = new JsonLogin();
