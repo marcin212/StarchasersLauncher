@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import pl.starchasers.launcher.sync.mods.Sync;
 import pl.starchasers.launcher.utils.FileUtils;
 import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.json.Libraries;
@@ -27,6 +28,7 @@ public class CheckFiles {
 			downloadLibraries(libraries);
 		}
 		downloadForge();
+		new Sync();
 	}
 
 	private void downloadForge(){

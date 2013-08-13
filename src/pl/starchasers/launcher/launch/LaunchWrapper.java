@@ -67,7 +67,7 @@ public class LaunchWrapper {
 		System.out.println(args2);
 		try {
 			final Process p = r.exec(args2);
-			MyFrame.instance.setVisible(false);
+			//MyFrame.instance.setVisible(false);
 			final BufferedReader stderr = new BufferedReader(
 					new InputStreamReader(p.getErrorStream()));
 			final BufferedReader stdout = new BufferedReader(

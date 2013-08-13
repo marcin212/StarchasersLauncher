@@ -15,7 +15,8 @@ import com.google.gson.Gson;
 public class Sync {
 	public FileList fileList = new FileList();
 	public List<FileInfo> fileMod = new ArrayList<FileInfo>();
-	public String json = Http.excuteGet("http://176.9.140.54/maszynaw/a.json");
+	public List<FileInfo> fileConfig = new ArrayList<FileInfo>();
+	public String json = Http.excuteGet("http://176.9.140.54/starchasers/a.json");
 	public Gson gson = new Gson();
 	public FileList fileListExternal = gson.fromJson(json, FileList.class);
 
@@ -23,15 +24,14 @@ public class Sync {
 	public List<String> toDelete = new ArrayList<String>();
 
 	public Sync() {
-		searchFiles(".\\starchasers\\minecraft\\config", true);
+		searchFiles(".\\starchasers\\minecraft\\config", true, fileConfig);
+		searchFiles(".\\starchasers\\minecraft\\mods", false, fileMod);
 		fileList.setModList(fileMod);
+		fileList.setConfigList(fileConfig);
 		compare();
 		downloadFiles();
 		deleteFiles();
-		System.out.println(toDownload.size());
-		System.out.println(toDelete.size());
-		System.out.println(gson.toJson(fileList));
-		System.out.println(json);
+
 		
 	}
 	
@@ -43,6 +43,7 @@ public class Sync {
 				f.mkdirs();
 			}
 			try {
+				System.out.println("Downloading -->"+toDownload.get(i).substring(toDownload.get(i).lastIndexOf("\\")+1));
 				pl.starchasers.launcher.utils.Http.download("http://176.9.140.54/starchasers/"+toDownload.get(i).replace("\\", "/").replace(" ", "%20"), toDownload.get(i).substring(0, toDownload.get(i).lastIndexOf("\\")));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -52,6 +53,7 @@ public class Sync {
 	
 	public void deleteFiles(){
 		for(int i=0; i<toDelete.size(); i++){
+			System.out.println("Deleting -->"+toDelete.get(i).substring(toDelete.get(i).lastIndexOf("\\")+1));
 			File f = new File(toDelete.get(i));
 			f.delete();
 			
@@ -59,6 +61,39 @@ public class Sync {
 	}
 	public void compare() {
 		boolean test;
+		for (int i = 0; i < fileListExternal.getConfigList().size(); i++) {
+				test=false;
+			for (int j = 0; j < fileList.getConfigList().size(); j++) {	
+				if (fileListExternal.getConfigList().get(i).getFileName().compareTo(fileList.getConfigList().get(j).getFileName())==0) {
+					test=true;
+					if (fileListExternal.getConfigList().get(i).getMd5().compareTo((fileList.getConfigList().get(j).getMd5()))==0) {
+					
+					} else {
+						toDownload.add(fileListExternal.getConfigList().get(i).getDir()+"\\"+fileListExternal.getConfigList().get(i).getFileName());
+					}
+				}
+				
+				
+			}
+			if(!test){
+				toDownload.add(fileListExternal.getConfigList().get(i).getDir()+"\\"+fileListExternal.getConfigList().get(i).getFileName());
+			}
+		}
+		for (int j = 0; j < fileList.getConfigList().size(); j++) {
+			
+			test=false;
+			for (int i = 0; i < fileListExternal.getConfigList().size(); i++) {
+				if (fileList.getConfigList().get(j).getFileName().compareTo(fileListExternal.getConfigList().get(i).getFileName())==0){
+					test=true;
+				}
+				
+			}
+			if(!test){
+				toDelete.add(fileList.getConfigList().get(j).getDir()+"\\"+fileList.getConfigList().get(j).getFileName());
+			}
+		}
+		
+		///////
 		for (int i = 0; i < fileListExternal.getModList().size(); i++) {
 				test=false;
 			for (int j = 0; j < fileList.getModList().size(); j++) {	
@@ -90,22 +125,24 @@ public class Sync {
 				toDelete.add(fileList.getModList().get(j).getDir()+"\\"+fileList.getModList().get(j).getFileName());
 			}
 		}
-			
-		
+				
 	}
-
-	public void searchFiles(String path, boolean recursive) {
+	
+	public void searchFiles(String path, boolean recursive, List<FileInfo> list) {
 		File folder = new File(path);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
 		File[] listFiles = folder.listFiles();
 		for (int i = 0; i < listFiles.length; i++) {
 			if (!listFiles[i].isDirectory()) {
-				this.fileMod.add(new FileInfo(listFiles[i].getName(),
+				list.add(new FileInfo(listFiles[i].getName(),
 						listFiles[i].getPath().substring(0,
 								listFiles[i].getPath().lastIndexOf("\\")),
 						testChecksum(listFiles[i].getPath())));
 			} else {
 				if (recursive) {
-					searchFiles(listFiles[i].getPath(), recursive);
+					searchFiles(listFiles[i].getPath(), recursive,list);
 				}
 			}
 
