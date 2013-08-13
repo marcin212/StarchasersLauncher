@@ -26,8 +26,8 @@ public class CheckFiles {
 			List<Libraries> libraries = MinecraftJson.instance
 					.getObjForVersion("1.6.2").getLibraries();
 			downloadLibraries(libraries);
+			downloadForge();
 		}
-		downloadForge();
 		new Sync();
 	}
 
