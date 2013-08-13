@@ -44,13 +44,11 @@ public class MainFrame {
 			
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				frame.setLocation(arg0.getXOnScreen()-x, arg0.getYOnScreen()-y);
 			}
 		});

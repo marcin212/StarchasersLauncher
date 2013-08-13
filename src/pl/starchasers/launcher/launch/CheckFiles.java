@@ -111,7 +111,6 @@ public class CheckFiles {
 						+ "/" + parts[2] + "/";
 				File f2 = new File(".\\starchasers\\minecraft\\bin\\natives\\"
 						+ dlpath);
-				System.out.print("--1--->"+dlpath);
 				if (!f2.exists()) {
 					f2.mkdirs();
 				}
