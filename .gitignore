@@ -17,7 +17,7 @@ local.properties
 .settings/
 .loadpath
 starchasers/
-!StarchasersLauncher/src/pl/starchasers
+!src/pl/starchasers
 
 
 .properties
