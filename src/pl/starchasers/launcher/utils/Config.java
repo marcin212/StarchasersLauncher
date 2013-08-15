@@ -49,6 +49,7 @@ public class Config extends Properties{
 		p.setProperty("clientToken", "");
 		p.setProperty("nickname","");
 		p.setProperty("rememberPass", "false");
+		p.setProperty("sync-server", "http://176.9.140.54/starchasers/");
 		return p;
 	}
 	public void setPropertyInt(String key, int value) {

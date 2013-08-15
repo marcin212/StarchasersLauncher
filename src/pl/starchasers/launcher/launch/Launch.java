@@ -1,5 +1,6 @@
 package pl.starchasers.launcher.launch;
 
+import pl.starchasers.launcher.skin.components.ActionLabel;
 import pl.starchasers.launcher.skin.components.LoginTextField;
 import pl.starchasers.launcher.skin.components.PasswordTextField;
 import pl.starchasers.launcher.utils.Config;
@@ -20,12 +21,15 @@ public class Launch {
 		payload.setPassword(PasswordTextField.instance.getText());
 		payload.setClientToken(Config.instance.getProperty("clientToken"));
 		String pts = gson.toJson(payload);
+		ActionLabel.instance.setAction("logging in...");
 		String response = Http.executeHttpRequest("https://authserver.mojang.com/authenticate", pts, "POST", "application/json");
 		Response resp = gson.fromJson(response, Response.class);
 		token = "token:" + resp.getAccessToken() + ":" + resp.getSelectedProfile().getId();
 		new MinecraftJson();
 		Version ver = MinecraftJson.instance.getObjForVersion("1.6.2");
+		ActionLabel.instance.setAction("checking files...");
 		new CheckFiles();
+		ActionLabel.instance.setAction("launching minecraft...");
 		new LaunchWrapper(token,ver);
 	}
 }

@@ -43,7 +43,14 @@ public class LaunchButton extends MyButton{
 			public void mouseClicked(MouseEvent arg0) {
 				setIcon(getUpIcon());
 				LabelLaunch.instance.mouseClicked();
-				new Launch();
+				Thread a = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						new Launch();
+					}
+				});
+				a.start();
+				
 			}
 		});
 	}

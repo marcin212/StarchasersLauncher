@@ -13,7 +13,7 @@ import pl.starchasers.launcher.utils.Variable;
 public class MyProgressBar extends JPanel {
 	public static MyProgressBar instance;
 	private static final long serialVersionUID = 1L;
-	private double percent = 0;
+	private double percent = 1;
 	private Image progressUnloadImg = Toolkit.getDefaultToolkit().getImage(
 			"src"+Variable.resourcePath+"progressbar_darkside.png");
 	private Image flareImg = Toolkit.getDefaultToolkit().getImage(
@@ -29,6 +29,7 @@ public class MyProgressBar extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		super.paintComponent(g2);
 		drawTrapezoid(g2);
+		if(percent != 1)
 		drawFlare(g2);
 		g2.finalize();
 	}

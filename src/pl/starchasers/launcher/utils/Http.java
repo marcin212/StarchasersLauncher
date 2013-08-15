@@ -1,13 +1,17 @@
 package pl.starchasers.launcher.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import pl.starchasers.launcher.skin.components.ActionLabel;
+import pl.starchasers.launcher.skin.components.MyProgressBar;
 
 public class Http {
 	public static boolean exists(String url) {
@@ -22,21 +26,37 @@ public class Http {
 			return false;
 		}
 	}
-	public static void download(String fileURL, String destinationDirectory)
-			throws IOException {
-		String downloadedFileName = fileURL
-				.substring(fileURL.lastIndexOf("/") + 1);
-		URL url = new URL(fileURL);
-		InputStream is = url.openStream();
-		FileOutputStream fos = new FileOutputStream(destinationDirectory + "/"
-				+ downloadedFileName.replace("%20", " "));
-		byte[] buffer = new byte[4096];
-		int bytesRead = 0;
-		while ((bytesRead = is.read(buffer)) != -1) {
-			fos.write(buffer, 0, bytesRead);
-		}
-		fos.close();
-		is.close();
+	public static void download(String fileURL, String destinationDirectory,float part){
+		try{
+	 	String downloadedFileName = fileURL.substring(fileURL.lastIndexOf("/") + 1);
+		ActionLabel.instance.addElement(downloadedFileName.replace("%20"," "));
+	 	ActionLabel.instance.setProgress(0);
+        URL url=new URL(fileURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int filesize = connection.getContentLength();
+        double startProgress = MyProgressBar.instance.getProgress();
+        float totalDataRead=0;
+            BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
+            FileOutputStream fos = new FileOutputStream(destinationDirectory+ "/" + downloadedFileName.replace("%20", " "));
+            BufferedOutputStream bout = new BufferedOutputStream(fos,1024);
+            byte[] data = new byte[1024];
+            int i=0;
+            while((i=in.read(data,0,1024))>=0)
+            {
+            	totalDataRead=totalDataRead+i;
+            	bout.write(data,0,i);
+            	float Percent=totalDataRead/filesize;
+            	ActionLabel.instance.setProgress(Percent);
+            	System.out.println(startProgress+(Percent*part));
+            	MyProgressBar.instance.setProgress(startProgress+(Percent*part));
+            	Thread.sleep(10);
+            }  
+            bout.close();
+            in.close();
+    	}catch(Exception e){
+    	e.printStackTrace();
+    }
+
 	}
 	public static String executeHttpRequest(String targetURL, String urlParameters, String requestType, String contentType) {
 		URL url;

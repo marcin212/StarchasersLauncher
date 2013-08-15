@@ -1,4 +1,4 @@
-package pl.starchasers.launcher.sync.mods;
+package pl.starchasers.launcher.sync;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.starchasers.launcher.skin.components.ActionLabel;
+import pl.starchasers.launcher.sync.mods.FileInfo;
+import pl.starchasers.launcher.sync.mods.FileList;
+import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.json.Http;
 
 import com.google.gson.Gson;
@@ -19,41 +23,22 @@ public class Sync {
 	public String json = Http.excuteGet("http://176.9.140.54/starchasers/a.json");
 	public Gson gson = new Gson();
 	public FileList fileListExternal = gson.fromJson(json, FileList.class);
-
-	public List<String> toDownload = new ArrayList<String>();
 	public List<String> toDelete = new ArrayList<String>();
 
 	public Sync() {
-		searchFiles(".\\starchasers\\minecraft\\config", true, fileConfig);
-		searchFiles(".\\starchasers\\minecraft\\mods", false, fileMod);
-		fileList.setModList(fileMod);
-		fileList.setConfigList(fileConfig);
-		compare();
-		downloadFiles();
-		deleteFiles();
-
-		
+		if(Config.instance.getProperty("sync-server")!=""){
+			ActionLabel.instance.setAction("checking files...");
+			searchFiles(".\\starchasers\\minecraft\\config", true, fileConfig);
+			searchFiles(".\\starchasers\\minecraft\\mods", false, fileMod);
+			fileList.setModList(fileMod);
+			fileList.setConfigList(fileConfig);
+			compare();
+			ActionLabel.instance.setAction("deleting useless files...");
+			deleteFiles();
+		}	
 	}
-	
-	public void downloadFiles(){
-		for(int i=0; i<toDownload.size(); i++){
-			System.out.println(toDownload.get(i).substring(0, toDownload.get(i).lastIndexOf("\\")));
-			File f = new File(toDownload.get(i).substring(0, toDownload.get(i).lastIndexOf("\\")));
-			if (!f.exists()) {
-				f.mkdirs();
-			}
-			try {
-				System.out.println("Downloading -->"+toDownload.get(i).substring(toDownload.get(i).lastIndexOf("\\")+1));
-				pl.starchasers.launcher.utils.Http.download("http://176.9.140.54/starchasers/"+toDownload.get(i).replace("\\", "/").replace(" ", "%20"), toDownload.get(i).substring(0, toDownload.get(i).lastIndexOf("\\")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	public void deleteFiles(){
 		for(int i=0; i<toDelete.size(); i++){
-			System.out.println("Deleting -->"+toDelete.get(i).substring(toDelete.get(i).lastIndexOf("\\")+1));
 			File f = new File(toDelete.get(i));
 			f.delete();
 			
@@ -69,14 +54,14 @@ public class Sync {
 					if (fileListExternal.getConfigList().get(i).getMd5().compareTo((fileList.getConfigList().get(j).getMd5()))==0) {
 					
 					} else {
-						toDownload.add(fileListExternal.getConfigList().get(i).getDir()+"\\"+fileListExternal.getConfigList().get(i).getFileName());
+						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"\\"));
 					}
 				}
 				
 				
 			}
 			if(!test){
-				toDownload.add(fileListExternal.getConfigList().get(i).getDir()+"\\"+fileListExternal.getConfigList().get(i).getFileName());
+						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"\\"));
 			}
 		}
 		for (int j = 0; j < fileList.getConfigList().size(); j++) {
@@ -102,14 +87,14 @@ public class Sync {
 					if (fileListExternal.getModList().get(i).getMd5().compareTo((fileList.getModList().get(j).getMd5()))==0) {
 					
 					} else {
-						toDownload.add(fileListExternal.getModList().get(i).getDir()+"\\"+fileListExternal.getModList().get(i).getFileName());
+						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getModList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getModList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getModList().get(i).getDir()+"\\"));
 					}
 				}
 				
 				
 			}
 			if(!test){
-				toDownload.add(fileListExternal.getModList().get(i).getDir()+"\\"+fileListExternal.getModList().get(i).getFileName());
+				DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getModList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getModList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getModList().get(i).getDir()+"\\"));
 			}
 		}
 		for (int j = 0; j < fileList.getModList().size(); j++) {
