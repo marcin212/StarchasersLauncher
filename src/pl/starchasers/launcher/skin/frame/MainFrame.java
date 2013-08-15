@@ -1,7 +1,11 @@
 package pl.starchasers.launcher.skin.frame;
+
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
+
 import pl.starchasers.launcher.skin.components.MyFrame;
 
 public class MainFrame {

@@ -2,9 +2,11 @@ package pl.starchasers.launcher.skin;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
+
+import pl.starchasers.launcher.skin.components.MyButton;
 import pl.starchasers.launcher.utils.Variable;
 
 public class MyFont {
@@ -12,10 +14,8 @@ public class MyFont {
 
 	public MyFont() {
 		try {
-			customFont = Font.createFont(
-					Font.TRUETYPE_FONT,
-					new File("src" + Variable.resourcePath
-							+ "Caviar_Dreams_Bold.ttf")).deriveFont(12f);
+			URL url = MyButton.class.getResource(Variable.resourcePath+ "Caviar_Dreams_Bold.ttf");	
+			customFont = Font.createFont(Font.TRUETYPE_FONT,url.openStream()).deriveFont(12f);
 		} catch (FontFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

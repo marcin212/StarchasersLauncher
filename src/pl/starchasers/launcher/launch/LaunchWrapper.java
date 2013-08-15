@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import pl.starchasers.launcher.skin.components.ActionLabel;
 import pl.starchasers.launcher.skin.components.LoginTextField;
+import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.Version;
 
 public class LaunchWrapper {
+	@SuppressWarnings("deprecation")
 	public LaunchWrapper(String token, Version ver) {
 		List<String> args = new ArrayList<String>();
 		args.add("java ");
@@ -56,7 +59,7 @@ public class LaunchWrapper {
 		System.out.println(args2);
 		try {
 			final Process p = r.exec(args2);
-			//MyFrame.instance.setVisible(false);
+			MyFrame.instance.setVisible(false);
 			final BufferedReader stderr = new BufferedReader(
 					new InputStreamReader(p.getErrorStream()));
 			final BufferedReader stdout = new BufferedReader(
@@ -65,13 +68,15 @@ public class LaunchWrapper {
 				public void run() {
 					while (true) {
 						try {
+								Thread.sleep(50);
 							if (p.getErrorStream().available() != 0) {
 								System.out.println(stderr.readLine());
 							}
 							if (p.getInputStream().available() != 0) {
 								System.out.println(stdout.readLine());
 							}
-							Thread.sleep(100);
+							
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -82,7 +87,9 @@ public class LaunchWrapper {
 			srt.start();
 			try {
 				System.out.println(p.waitFor());
-				srt.interrupt();
+				srt.stop();
+				ActionLabel.instance.setAction("");
+				MyFrame.instance.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,6 +1,8 @@
 package pl.starchasers.launcher.skin.components;
 
 import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -46,6 +48,19 @@ public class LoginTextField extends JTextField {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setText("");
+			}
+		});
+		addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				setText("");
+				
 			}
 		});
 	}

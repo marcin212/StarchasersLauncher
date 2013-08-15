@@ -1,11 +1,16 @@
 package pl.starchasers.launcher.skin.components;
 
 import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPasswordField;
 
+import pl.starchasers.launcher.launch.Run;
 import pl.starchasers.launcher.skin.MyFont;
 
 public class PasswordTextField extends JPasswordField{
@@ -44,6 +49,37 @@ public class PasswordTextField extends JPasswordField{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setText("");
+			}
+		});
+		addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				setText("");
+				
+			}
+		});
+		addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==10){
+					Run.start();
+				}
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
 			}
 		});
 	}

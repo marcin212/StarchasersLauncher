@@ -21,8 +21,8 @@ public class Console extends JFrame implements ActionListener {
 	public Console() {
 		try {
 			setTitle("Console");
-			setResizable(false);
-			setSize(new Dimension(600, 250));
+			setResizable(true);
+			setSize(new Dimension(700, 300));
 			przyciski();
 			setVisible(true);
 		} catch (Exception e) {

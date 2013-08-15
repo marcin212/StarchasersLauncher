@@ -4,8 +4,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Shape;
-import java.awt.Toolkit;
 import java.awt.geom.GeneralPath;
+
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import pl.starchasers.launcher.utils.Variable;
@@ -14,10 +15,10 @@ public class MyProgressBar extends JPanel {
 	public static MyProgressBar instance;
 	private static final long serialVersionUID = 1L;
 	private double percent = 1;
-	private Image progressUnloadImg = Toolkit.getDefaultToolkit().getImage(
-			"src"+Variable.resourcePath+"progressbar_darkside.png");
-	private Image flareImg = Toolkit.getDefaultToolkit().getImage(
-			"src"+Variable.resourcePath+"progressbar_flare.png");
+	private Image progressUnloadImg = new ImageIcon(
+			MyProgressBar.class.getResource(Variable.resourcePath+"progressbar_darkside.png")).getImage();
+	private Image flareImg =  new ImageIcon(
+			MyProgressBar.class.getResource(Variable.resourcePath+"progressbar_flare.png")).getImage();
 	public MyProgressBar(){
 		super();
 		instance = this;

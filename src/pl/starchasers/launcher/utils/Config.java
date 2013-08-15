@@ -3,7 +3,6 @@ package pl.starchasers.launcher.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.util.Properties;
 import java.util.UUID;
@@ -33,8 +32,9 @@ public class Config extends Properties{
 	public void store(String path) {
 		File f = new File(path);
 		try {
+			//Thread.sleep(1000);
 			store(new FileOutputStream(f), "Starchasers Config");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

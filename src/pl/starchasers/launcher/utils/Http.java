@@ -47,9 +47,9 @@ public class Http {
             	bout.write(data,0,i);
             	float Percent=totalDataRead/filesize;
             	ActionLabel.instance.setProgress(Percent);
-            	System.out.println(startProgress+(Percent*part));
+            	//System.out.println(startProgress+(Percent*part));
             	MyProgressBar.instance.setProgress(startProgress+(Percent*part));
-            	Thread.sleep(10);
+            	Thread.sleep(1);
             }  
             bout.close();
             in.close();
