@@ -30,6 +30,11 @@ public class Launch {
 		ActionLabel.instance.setAction("checking files...");
 		new CheckFiles();
 		ActionLabel.instance.setAction("launching minecraft...");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		new LaunchWrapper(token,ver);
 	}
 }

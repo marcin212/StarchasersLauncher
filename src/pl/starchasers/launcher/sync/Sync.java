@@ -28,8 +28,8 @@ public class Sync {
 	public Sync() {
 		if(Config.instance.getProperty("sync-server")!=""){
 			ActionLabel.instance.setAction("checking files...");
-			searchFiles(".\\starchasers\\minecraft\\config", true, fileConfig);
-			searchFiles(".\\starchasers\\minecraft\\mods", false, fileMod);
+			searchFiles("./starchasers/minecraft/config", true, fileConfig);
+			searchFiles("./starchasers/minecraft/mods", false, fileMod);
 			fileList.setModList(fileMod);
 			fileList.setConfigList(fileConfig);
 			compare();
@@ -54,14 +54,14 @@ public class Sync {
 					if (fileListExternal.getConfigList().get(i).getMd5().compareTo((fileList.getConfigList().get(j).getMd5()))==0) {
 					
 					} else {
-						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"\\"));
+						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"/"));
 					}
 				}
 				
 				
 			}
 			if(!test){
-						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"\\"));
+						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"/"));
 			}
 		}
 		for (int j = 0; j < fileList.getConfigList().size(); j++) {
@@ -74,7 +74,7 @@ public class Sync {
 				
 			}
 			if(!test){
-				toDelete.add(fileList.getConfigList().get(j).getDir()+"\\"+fileList.getConfigList().get(j).getFileName());
+				toDelete.add(fileList.getConfigList().get(j).getDir()+"/"+fileList.getConfigList().get(j).getFileName());
 			}
 		}
 		
@@ -87,14 +87,14 @@ public class Sync {
 					if (fileListExternal.getModList().get(i).getMd5().compareTo((fileList.getModList().get(j).getMd5()))==0) {
 					
 					} else {
-						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getModList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getModList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getModList().get(i).getDir()+"\\"));
+						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getModList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getModList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getModList().get(i).getDir()+"/"));
 					}
 				}
 				
 				
 			}
 			if(!test){
-				DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getModList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getModList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getModList().get(i).getDir()+"\\"));
+				DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getModList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getModList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getModList().get(i).getDir()+"/"));
 			}
 		}
 		for (int j = 0; j < fileList.getModList().size(); j++) {
@@ -107,7 +107,7 @@ public class Sync {
 				
 			}
 			if(!test){
-				toDelete.add(fileList.getModList().get(j).getDir()+"\\"+fileList.getModList().get(j).getFileName());
+				toDelete.add(fileList.getModList().get(j).getDir()+"/"+fileList.getModList().get(j).getFileName());
 			}
 		}
 				
@@ -122,8 +122,8 @@ public class Sync {
 		for (int i = 0; i < listFiles.length; i++) {
 			if (!listFiles[i].isDirectory()) {
 				list.add(new FileInfo(listFiles[i].getName(),
-						listFiles[i].getPath().substring(0,
-								listFiles[i].getPath().lastIndexOf("\\")),
+						listFiles[i].getPath().replace("\\", "/").substring(0,
+								listFiles[i].getPath().replace("\\", "/").lastIndexOf("/")),
 						testChecksum(listFiles[i].getPath())));
 			} else {
 				if (recursive) {

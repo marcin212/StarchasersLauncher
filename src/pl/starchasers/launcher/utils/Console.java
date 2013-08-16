@@ -40,6 +40,7 @@ public class Console extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		outputField = new JTextArea();
+		outputField.setEditable(false);
 		JScrollPane scroll = new JScrollPane(outputField);
 		JButton button = new JButton("Clear!");
 		panel.add(scroll, BorderLayout.CENTER);

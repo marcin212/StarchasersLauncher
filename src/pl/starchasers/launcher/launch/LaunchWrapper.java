@@ -22,7 +22,7 @@ public class LaunchWrapper {
 		args.add("-Xms" + Config.instance.getProperty("Xms"));
 		args.add(" -Xmx" + Config.instance.getProperty("Xmx"));
 		args.add(" -XX:MaxPermSize=" + Config.instance.getProperty("PermGen"));
-		args.add(" -Djava.library.path=.\\starchasers\\minecraft\\bin\\natives\\");
+		args.add(" -Djava.library.path=./starchasers/minecraft/bin/natives/");
 		String libsString = " ";
 		List<Libraries> libs = ver.getLibraries();
 		Iterator<Libraries> it = libs.iterator();
@@ -36,17 +36,17 @@ public class LaunchWrapper {
 			libsString += ".\\starchasers\\minecraft\\libraries\\" + lib + ";";
 		}
 		
-		libsString += ".\\starchasers\\minecraft\\libraries\\"+"org\\ow2\\asm\\asm-all\\4.1\\asm-all-4.1.jar;";	
-		libsString += ".\\starchasers\\minecraft\\libraries\\"+"lzma\\lzma\\0.0.1\\lzma-0.0.1.jar;";
-		libsString += ".\\starchasers\\minecraft\\libraries\\"+"net\\minecraftforge\\minecraftforge\\9.10.0.828\\minecraftforge-9.10.0.828.jar;";
-		libsString += ".\\starchasers\\minecraft\\libraries\\"+"net\\minecraft\\launchwrapper\\1.3\\launchwrapper-1.3.jar;";
-		libsString += ".\\starchasers\\minecraft\\bin\\"+Variable.minecraftVersion+".jar net.minecraft.launchwrapper.Launch";//net.minecraft.client.main.Main";
+		libsString += "./starchasers/minecraft/libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar;";	
+		libsString += "./starchasers/minecraft/libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar;";
+		libsString += "./starchasers/minecraft/libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-9.10.0.828.jar;";
+		libsString += "./starchasers/minecraft/libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar;";
+		libsString += "./starchasers/minecraft/bin/"+Variable.minecraftVersion+".jar net.minecraft.launchwrapper.Launch";//net.minecraft.client.main.Main";
 		args.add(" -cp " + libsString);
 		args.add(" --username " + LoginTextField.instance.getText());
 		args.add(" --session " + token);
 		args.add(" --version "+Variable.minecraftVersion);
-		args.add(" --gameDir .\\starchasers\\minecraft\\");
-		args.add(" --assetsDir .\\starchasers\\minecraft\\assets");
+		args.add(" --gameDir ./starchasers/minecraft/");
+		args.add(" --assetsDir ./starchasers/minecraft/assets");
 		
 		args.add(" --tweakClass cpw.mods.fml.common.launcher.FMLTweaker");
 
@@ -57,7 +57,7 @@ public class LaunchWrapper {
 		}
 		System.out.println(args2);
 		try {
-			Thread.sleep(2000);
+			
 			final Process p = r.exec(args2);
 			MyFrame.instance.setVisible(false);
 			final BufferedReader stderr = new BufferedReader(

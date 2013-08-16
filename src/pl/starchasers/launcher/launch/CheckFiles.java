@@ -17,12 +17,12 @@ import pl.starchasers.launcher.utils.json.MinecraftJson;
 public class CheckFiles {
 	CheckFiles() {
 		
-		File f = new File(".\\starchasers\\minecraft\\bin");
+		File f = new File("./starchasers/minecraft/bin");
 		if (!f.exists()) {
 			f.mkdirs();
 			downloadBin();
 		}
-		f = new File(".\\starchasers\\minecraft\\libraries");
+		f = new File("./starchasers/minecraft/libraries");
 		if (!f.exists()) {
 			f.mkdirs();
 			List<Libraries> libraries = MinecraftJson.instance
@@ -40,13 +40,13 @@ public class CheckFiles {
 	private void downloadForge(){
 		
 
-			File f = new File(".\\starchasers\\minecraft\\libraries\\"+"org\\ow2\\asm\\asm-all\\4.1\\");
+			File f = new File("./starchasers/minecraft/libraries/"+"org/ow2/asm/asm-all/4.1/");
 			if (!f.exists()) f.mkdirs();
-			f = new File(".\\starchasers\\minecraft\\libraries\\"+"lzma\\lzma\\0.0.1\\");
+			f = new File("./starchasers/minecraft/libraries/"+"lzma/lzma/0.0.1/");
 			if (!f.exists()) f.mkdirs();
-			f = new File(".\\starchasers\\minecraft\\libraries\\"+"net\\minecraft\\launchwrapper\\1.3\\");
+			f = new File("./starchasers/minecraft/libraries/"+"net/minecraft/launchwrapper/1.3/");
 			if (!f.exists()) f.mkdirs();
-			f = new File(".\\starchasers\\minecraft\\libraries\\"+"net\\minecraftforge\\minecraftforge\\9.10.0.828\\");
+			f = new File("./starchasers/minecraft/libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/");
 			if (!f.exists()) f.mkdirs();
 			
 			
@@ -68,29 +68,29 @@ public class CheckFiles {
 			MyProgressBar.instance.setProgress(0.5f);
 			DownloadJob.getList().add(new DownloadFile(
 					"http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar",
-					".\\starchasers\\minecraft\\bin"));
+					"./starchasers/minecraft/bin"));
 	}
 
 	private void downloadLibraries(List<Libraries> libraries) {
-		File f = new File(".\\starchasers\\minecraft\\libraries\\");
+		File f = new File("./starchasers/minecraft/libraries/");
 		if (!f.exists()) {
 			f.mkdirs();
 		}
-		f = new File(".\\starchasers\\minecraft\\bin\\natives\\");
+		f = new File("./starchasers/minecraft/bin/natives/");
 		if (!f.exists()) {
 			f.mkdirs();
 		}
 		for (Libraries actLib : libraries) {
 			if (actLib.getNatives() == null) {
 				if (actLib.getName().contains("debug")) {
-					System.out.println("lol");
+					//System.out.println("lol");
 					continue;
 				}
 				String[] parts = actLib.getName().split(":");
 				String dlpath = parts[0].replace('.', '/') + "/" + parts[1]
 						+ "/" + parts[2] + "/";
 				String localPath = dlpath;
-				File f2 = new File(".\\starchasers\\minecraft\\libraries\\"
+				File f2 = new File("./starchasers/minecraft/libraries/"
 						+ dlpath);
 				if (!f2.exists()) {
 					f2.mkdirs();
@@ -100,7 +100,7 @@ public class CheckFiles {
 					String temp = "https://s3.amazonaws.com/Minecraft.Download/libraries/"
 							+ dlpath;
 					System.out.println(dlpath);
-					DownloadJob.getList().add(new DownloadFile(temp,".\\starchasers\\minecraft\\libraries\\"+localPath));
+					DownloadJob.getList().add(new DownloadFile(temp,"./starchasers/minecraft/libraries/"+localPath));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -140,7 +140,7 @@ public class CheckFiles {
 				String[] parts = actLib.getName().split(":");
 				String dlpath = parts[0].replace('.', '/') + "/" + parts[1]
 						+ "/" + parts[2] + "/";
-				File f2 = new File(".\\starchasers\\minecraft\\bin\\natives\\"
+				File f2 = new File("./starchasers/minecraft/bin/natives/"
 						+ dlpath);
 				if (!f2.exists()) {
 					f2.mkdirs();
@@ -153,7 +153,7 @@ public class CheckFiles {
 					DownloadJob.getList().add(new DownloadFile(
 							"https://s3.amazonaws.com/Minecraft.Download/libraries/"
 									+ dlpath,
-							".\\starchasers\\minecraft\\bin\\natives\\"
+							"./starchasers/minecraft/bin/natives/"
 									+ dlpath2));
 					String name = "./starchasers/minecraft/bin/natives/"
 							+ dlpath;

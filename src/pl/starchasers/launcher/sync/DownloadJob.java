@@ -27,7 +27,7 @@ public class DownloadJob {
 	 MyProgressBar.instance.setProgress(1);
 	 try {
 		 for(int i=0;i<nativesFile.size();i++)
-		FileUtils.extractFolder(nativesFile.get(i),".\\starchasers\\minecraft\\bin\\natives\\");
+		FileUtils.extractFolder(nativesFile.get(i),"./starchasers/minecraft/bin/natives/");
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

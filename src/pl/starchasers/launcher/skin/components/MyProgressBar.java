@@ -63,6 +63,7 @@ public class MyProgressBar extends JPanel {
 	}
 
 	public void setProgress(double progress) {
+		if(progress > 1) progress = 1;
 		if (progress > 1 || progress < 0)
 			throw new IllegalArgumentException(
 					"Progress must be greater or equal than 0 and less or equal than 1.");
