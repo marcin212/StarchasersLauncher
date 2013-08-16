@@ -1,7 +1,6 @@
 package pl.starchasers.launcher.launch;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,6 +57,7 @@ public class LaunchWrapper {
 		}
 		System.out.println(args2);
 		try {
+			Thread.sleep(2000);
 			final Process p = r.exec(args2);
 			MyFrame.instance.setVisible(false);
 			final BufferedReader stderr = new BufferedReader(
@@ -68,7 +68,7 @@ public class LaunchWrapper {
 				public void run() {
 					while (true) {
 						try {
-								Thread.sleep(50);
+								Thread.sleep(1);
 							if (p.getErrorStream().available() != 0) {
 								System.out.println(stderr.readLine());
 							}
@@ -93,7 +93,7 @@ public class LaunchWrapper {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
