@@ -10,7 +10,7 @@ public class LaunchButton extends MyButton{
 	private static final long serialVersionUID = 1L;
 	public static LaunchButton instance;
 	public LaunchButton() {
-		super("Launch", Variable.resourcePath+"button_launch");
+		super("", Variable.resourcePath+"button_launch");
 		instance = this;
 		setBounds(493, 386, 114, 27);
 		addMouseListener(new MouseListener() {

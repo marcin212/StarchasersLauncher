@@ -22,6 +22,7 @@ public class MyMainPanel extends JPanel {
 		instance = this;
 		setBounds(0, 0, 854, 480);
 		setLayout(null);
+		add(new CopyrightLabel());
 		add(new ActionLabel());
 		add(new MyProgressBar());
 		add(new OptionsButton());
