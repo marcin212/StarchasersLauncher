@@ -134,7 +134,7 @@ public class Sync {
 		}
 	}
 
-	public String testChecksum(String file) {
+	public static String testChecksum(String file) {
 		MessageDigest md5;
 		try {
 			md5 = MessageDigest.getInstance("MD5");

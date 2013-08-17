@@ -3,6 +3,7 @@ package pl.starchasers.launcher.skin.components;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import pl.starchasers.launcher.skin.frame.OptionsFrame;
 import pl.starchasers.launcher.utils.Variable;
 
 public class OptionsButton extends MyButton{
@@ -37,6 +38,7 @@ public class OptionsButton extends MyButton{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setIcon(getUpIcon());
+				new OptionsFrame();
 			}
 		});
 	}

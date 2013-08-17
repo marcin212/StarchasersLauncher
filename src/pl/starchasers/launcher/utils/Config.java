@@ -50,6 +50,7 @@ public class Config extends Properties{
 		p.setProperty("nickname","");
 		p.setProperty("rememberPass", "false");
 		p.setProperty("sync-server", "http://176.9.140.54/starchasers/");
+		p.setProperty("non-premium", "false");
 		return p;
 	}
 	public void setPropertyInt(String key, int value) {

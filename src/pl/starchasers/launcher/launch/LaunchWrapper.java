@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import pl.starchasers.launcher.skin.components.ActionLabel;
-import pl.starchasers.launcher.skin.components.LoginTextField;
 import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
@@ -16,10 +15,15 @@ import pl.starchasers.launcher.utils.json.Version;
 
 public class LaunchWrapper {
 	@SuppressWarnings("deprecation")
-	public LaunchWrapper(String token, Version ver) {
+	public LaunchWrapper(String token, Version ver,String name) {
 		List<String> args = new ArrayList<String>();
+		String separator = "";
+		String systemik = System.getProperty("os.name").toLowerCase();
+		if(systemik.contains("windows")) separator = ";";
+		if(systemik.contains("linux")) separator = ":";
 		args.add("java ");
-		args.add("-Xms" + Config.instance.getProperty("Xms"));
+		//args.add("-Xdock:icon=" + new File("./starchasers/minecraft/assets/icons/minecraft.icns").getAbsolutePath()+" -Xdock:name=Minecraft" );
+		args.add(" -Xms" + Config.instance.getProperty("Xms"));
 		args.add(" -Xmx" + Config.instance.getProperty("Xmx"));
 		args.add(" -XX:MaxPermSize=" + Config.instance.getProperty("PermGen"));
 		args.add(" -Djava.library.path=./starchasers/minecraft/bin/natives/");
@@ -32,17 +36,17 @@ public class LaunchWrapper {
 				continue;
 			}
 			String[] libparts = temp.split(":");
-			String lib = libparts[0].replace(".", "\\") + "\\" + libparts[1] + "\\" + libparts[2] + "\\" + libparts[1] + "-" + libparts[2] + ".jar";
-			libsString += ".\\starchasers\\minecraft\\libraries\\" + lib + ";";
+			String lib = libparts[0].replace(".", "/") + "/" + libparts[1] + "/" + libparts[2] + "/" + libparts[1] + "-" + libparts[2] + ".jar";
+			libsString += "./starchasers/minecraft/libraries/" + lib + separator;
 		}
 		
-		libsString += "./starchasers/minecraft/libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar;";	
-		libsString += "./starchasers/minecraft/libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar;";
-		libsString += "./starchasers/minecraft/libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-9.10.0.828.jar;";
-		libsString += "./starchasers/minecraft/libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar;";
+		libsString += "./starchasers/minecraft/libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar"+separator;	
+		libsString += "./starchasers/minecraft/libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar"+separator;
+		libsString += "./starchasers/minecraft/libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-9.10.0.828.jar"+separator;
+		libsString += "./starchasers/minecraft/libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar"+separator;
 		libsString += "./starchasers/minecraft/bin/"+Variable.minecraftVersion+".jar net.minecraft.launchwrapper.Launch";//net.minecraft.client.main.Main";
 		args.add(" -cp " + libsString);
-		args.add(" --username " + LoginTextField.instance.getText());
+		args.add(" --username " + name);
 		args.add(" --session " + token);
 		args.add(" --version "+Variable.minecraftVersion);
 		args.add(" --gameDir ./starchasers/minecraft/");
