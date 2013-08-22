@@ -44,9 +44,11 @@ public class Config extends Properties{
 		p.setProperty("Height", "600");
 		p.setProperty("Xms", "512M");
 		p.setProperty("Xmx", "1024M");
+		p.setProperty("minecraftVersion", "1.6.2");
 		p.setProperty("PermGen", "128M");
 		p.setProperty("AddJVMArgs", "");
 		p.setProperty("clientToken", "");
+		p.setProperty("modpack", "starchasersmodpack");
 		p.setProperty("nickname","");
 		p.setProperty("rememberPass", "false");
 		p.setProperty("sync-server", "http://176.9.140.54/starchasers/");

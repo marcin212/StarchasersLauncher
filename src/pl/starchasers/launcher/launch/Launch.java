@@ -1,5 +1,9 @@
 package pl.starchasers.launcher.launch;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.UUID;
 
 import pl.starchasers.launcher.skin.components.ActionLabel;
@@ -7,6 +11,7 @@ import pl.starchasers.launcher.skin.components.LoginTextField;
 import pl.starchasers.launcher.skin.components.PasswordTextField;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Http;
+import pl.starchasers.launcher.utils.Variable;
 import pl.starchasers.launcher.utils.json.JsonLogin;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
 import pl.starchasers.launcher.utils.json.Version;
@@ -46,8 +51,8 @@ public class Launch {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
-		
-		new LaunchWrapper(token,ver,name);
+		} 
+
+		//new LaunchWrapper(token,ver,name);
 	}
 }
