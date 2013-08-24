@@ -1,8 +1,6 @@
 package pl.starchasers.launcher.launch;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -12,19 +10,19 @@ import pl.starchasers.launcher.skin.components.MyProgressBar;
 import pl.starchasers.launcher.sync.DownloadFile;
 import pl.starchasers.launcher.sync.DownloadJob;
 import pl.starchasers.launcher.sync.Sync;
-import pl.starchasers.launcher.utils.Config;
-import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.Variable;
 import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
-import pl.starchasers.launcher.utils.json.MyFile;
 
 public class CheckFiles {
 	CheckFiles() {
 		
-
+		File f = new File("./starchasers/minecraft/bin");
+		if (!f.exists()) {
+			f.mkdirs();
 			downloadBin();
-		File f = new File("./starchasers/minecraft/libraries");
+		}
+		f = new File("./starchasers/minecraft/libraries");
 		if (!f.exists()) {
 			f.mkdirs();
 			List<Libraries> libraries = MinecraftJson.instance
@@ -33,7 +31,7 @@ public class CheckFiles {
 			downloadForge();
 		}
 
-		new Sync();
+		new Sync();		
 		ActionLabel.instance.setAction("downloading files...");
 		DownloadJob.downloadJob();
 		ActionLabel.instance.setZero();
@@ -67,20 +65,10 @@ public class CheckFiles {
 		}
 		
 	private void downloadBin() {
-		String url = "http://s3.amazonaws.com/Minecraft.Download/versions/"
-						+Config.instance.getProperty("minecraftVersion")
-							+"/"+Config.instance.getProperty("minecraftVersion")+".jar";
-		
-		String localFile = Variable.modpacksDir+ Config.instance.getProperty("modpack") +"/minecraft/bin/";
-		System.out.println("Checking.." + Config.instance.getProperty("minecraftVersion")+".jar");
-		long sizeRemote = Http.getRemoteSize(url);
-		if(new File(localFile+Config.instance.getProperty("minecraftVersion")+".jar").exists()){
-			if (sizeRemote != MyFile.fileSize(localFile+Config.instance.getProperty("minecraftVersion")+".jar")) {
-			DownloadJob.getList().add(new DownloadFile(url, localFile));
-		}
-		}else{
-			DownloadJob.getList().add(new DownloadFile(url, localFile));
-		}	
+			MyProgressBar.instance.setProgress(0.5f);
+			DownloadJob.getList().add(new DownloadFile(
+					"http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar",
+					"./starchasers/minecraft/bin"));
 	}
 
 	private void downloadLibraries(List<Libraries> libraries) {

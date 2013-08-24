@@ -22,6 +22,7 @@ public class LaunchWrapper {
 		if(systemik.contains("windows")) separator = ";";
 		if(systemik.contains("linux")) separator = ":";
 		args.add("java ");
+		//args.add("-Xdock:icon=" + new File("./starchasers/minecraft/assets/icons/minecraft.icns").getAbsolutePath()+" -Xdock:name=Minecraft" );
 		args.add(" -Xms" + Config.instance.getProperty("Xms"));
 		args.add(" -Xmx" + Config.instance.getProperty("Xmx"));
 		args.add(" -XX:MaxPermSize=" + Config.instance.getProperty("PermGen"));
