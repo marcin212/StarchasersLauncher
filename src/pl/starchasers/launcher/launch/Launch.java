@@ -40,7 +40,7 @@ public class Launch {
 		Version ver = MinecraftJson.instance.getObjForVersion("1.6.2");
 		ActionLabel.instance.setAction("checking files...");
 		new DownloadResources();
-		new CheckFiles();
+		//new CheckFiles();
 		ActionLabel.instance.setAction("launching minecraft...");
 		try {
 			Thread.sleep(2000);

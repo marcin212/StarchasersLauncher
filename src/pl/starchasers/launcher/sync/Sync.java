@@ -20,7 +20,7 @@ public class Sync {
 	public FileList fileList = new FileList();
 	public List<FileInfo> fileMod = new ArrayList<FileInfo>();
 	public List<FileInfo> fileConfig = new ArrayList<FileInfo>();
-	public String json = Http.excuteGet("http://176.9.140.54/starchasers/a.json");
+	public String json = Http.excuteGet("http://starchasers.pl/starchasers/a.json");
 	public Gson gson = new Gson();
 	public FileList fileListExternal = gson.fromJson(json, FileList.class);
 	public List<String> toDelete = new ArrayList<String>();
@@ -28,6 +28,7 @@ public class Sync {
 	public Sync() {
 		if(Config.instance.getProperty("sync-server")!=""){
 			ActionLabel.instance.setAction("checking files...");
+			searchFiles("./config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/mods", false, fileMod);
 			fileList.setModList(fileMod);
@@ -49,8 +50,10 @@ public class Sync {
 		for (int i = 0; i < fileListExternal.getConfigList().size(); i++) {
 				test=false;
 			for (int j = 0; j < fileList.getConfigList().size(); j++) {	
-				if (fileListExternal.getConfigList().get(i).getFileName().compareTo(fileList.getConfigList().get(j).getFileName())==0) {
+				if (fileListExternal.getConfigList().get(i).getFileName().compareTo(fileList.getConfigList().get(j).getFileName())==0
+					&& fileListExternal.getConfigList().get(i).getDir().compareTo(fileList.getConfigList().get(j).getDir())==0) {
 					test=true;
+					
 					if (fileListExternal.getConfigList().get(i).getMd5().compareTo((fileList.getConfigList().get(j).getMd5()))==0) {
 					
 					} else {
@@ -61,14 +64,15 @@ public class Sync {
 				
 			}
 			if(!test){
-						DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"/"));
+				DownloadJob.getList().add(new DownloadFile(Config.instance.getProperty("sync-server")+fileListExternal.getConfigList().get(i).getDir().replace(".\\", "").replace("\\", "/")+"/"+fileListExternal.getConfigList().get(i).getFileName().replace("\\", "/").replace(" ", "%20"),fileListExternal.getConfigList().get(i).getDir()+"/"));
 			}
 		}
 		for (int j = 0; j < fileList.getConfigList().size(); j++) {
 			
 			test=false;
 			for (int i = 0; i < fileListExternal.getConfigList().size(); i++) {
-				if (fileList.getConfigList().get(j).getFileName().compareTo(fileListExternal.getConfigList().get(i).getFileName())==0){
+				if (fileList.getConfigList().get(j).getFileName().compareTo(fileListExternal.getConfigList().get(i).getFileName())==0
+						&& fileList.getConfigList().get(j).getDir().compareTo(fileListExternal.getConfigList().get(i).getDir())==0){
 					test=true;
 				}
 				
@@ -82,7 +86,8 @@ public class Sync {
 		for (int i = 0; i < fileListExternal.getModList().size(); i++) {
 				test=false;
 			for (int j = 0; j < fileList.getModList().size(); j++) {	
-				if (fileListExternal.getModList().get(i).getFileName().compareTo(fileList.getModList().get(j).getFileName())==0) {
+				if (fileListExternal.getModList().get(i).getFileName().compareTo(fileList.getModList().get(j).getFileName())==0
+						&& fileListExternal.getModList().get(i).getDir().compareTo(fileList.getModList().get(j).getDir())==0) {
 					test=true;
 					if (fileListExternal.getModList().get(i).getMd5().compareTo((fileList.getModList().get(j).getMd5()))==0) {
 					
@@ -101,7 +106,8 @@ public class Sync {
 			
 			test=false;
 			for (int i = 0; i < fileListExternal.getModList().size(); i++) {
-				if (fileList.getModList().get(j).getFileName().compareTo(fileListExternal.getModList().get(i).getFileName())==0){
+				if (fileList.getModList().get(j).getFileName().compareTo(fileListExternal.getModList().get(i).getFileName())==0
+						&& fileList.getModList().get(j).getDir().compareTo(fileListExternal.getModList().get(i).getDir())==0){
 					test=true;
 				}
 				

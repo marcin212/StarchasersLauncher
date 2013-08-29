@@ -96,15 +96,16 @@ public class Http {
 			}
 		}
 	}
+
 	public static long getRemoteSize(String fileURL) {
-		InputStream is;
 		try {
 			URL url = new URL(fileURL);
-			is = url.openStream();
-			return is.available();
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			return connection.getContentLength();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 }

@@ -46,8 +46,10 @@ public class PasswordTextField extends JPasswordField{
 				
 			}
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(getText().compareTo("Password")==0)
 				setText("");
 			}
 		});
@@ -58,8 +60,10 @@ public class PasswordTextField extends JPasswordField{
 				
 			}
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void focusGained(FocusEvent e) {
+				if(getText().compareTo("Password")==0)
 				setText("");
 				
 			}

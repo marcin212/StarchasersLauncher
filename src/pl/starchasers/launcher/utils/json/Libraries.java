@@ -9,6 +9,9 @@ public class Libraries {
 	private Map<String, String> natives;
 	private ExtractRules extract;
 
+	public Libraries(String name){
+		this.name = name;
+	}
 	public String getName() {
 		return this.name;
 	}

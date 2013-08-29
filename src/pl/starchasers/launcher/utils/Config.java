@@ -49,7 +49,7 @@ public class Config extends Properties{
 		p.setProperty("clientToken", "");
 		p.setProperty("nickname","");
 		p.setProperty("rememberPass", "false");
-		p.setProperty("sync-server", "http://176.9.140.54/starchasers/");
+		p.setProperty("sync-server", "http://starchasers.pl/starchasers/");
 		p.setProperty("non-premium", "false");
 		return p;
 	}

@@ -57,4 +57,8 @@ public class MainFrame {
 			}
 		});
 	}
+	public MyFrame getFrame() {
+		return frame;
+	}
+	
 }

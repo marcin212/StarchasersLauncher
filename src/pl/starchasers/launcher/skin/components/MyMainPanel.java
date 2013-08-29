@@ -2,21 +2,10 @@ package pl.starchasers.launcher.skin.components;
 
 import javax.swing.JPanel;
 
+
 public class MyMainPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public static MyMainPanel instance;
-/*	private MyProgressBar progressBar;
-	private OptionsButton optionsButton;
-	private CheckBox checkBox;
-	private WebSiteButton webButton;
-	private ButtonClose closeButton;
-	private LabelLaunch launchLabel;
-	private LaunchButton launchButton;
-	private PasswordTextField passwordField;
-	private BgPasswordTextField bgPasswordTextField;
-	private LoginTextField loginField;
-	private BgUserNameTextField bgUserNameTextField;
-	private BackGroundLabel backGround;*/
 
 	public MyMainPanel() {
 		instance = this;

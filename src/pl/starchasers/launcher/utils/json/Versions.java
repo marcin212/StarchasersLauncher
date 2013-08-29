@@ -1,5 +1,7 @@
 package pl.starchasers.launcher.utils.json;
 
+
+
 import java.util.List;
 
 public class Versions {

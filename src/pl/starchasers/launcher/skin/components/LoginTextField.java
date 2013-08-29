@@ -47,7 +47,9 @@ public class LoginTextField extends JTextField {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(getText().compareTo("Username")==0)
 				setText("");
+				
 			}
 		});
 		addFocusListener(new FocusListener() {
@@ -59,6 +61,7 @@ public class LoginTextField extends JTextField {
 			
 			@Override
 			public void focusGained(FocusEvent e) {
+				if(getText().compareTo("Username")==0)
 				setText("");
 				
 			}
