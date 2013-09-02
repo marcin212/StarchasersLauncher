@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPasswordField;
 
+import pl.starchasers.launcher.auth.Login;
+import pl.starchasers.launcher.launch.Launch;
 import pl.starchasers.launcher.launch.Run;
 import pl.starchasers.launcher.skin.MyFont;
 
@@ -76,7 +78,11 @@ public class PasswordTextField extends JPasswordField{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode()==10){
-					Run.start();
+					if(Login.getStatus()){
+						Launch.runButton();
+					}else if(Login.getCanRun()){
+						Run.start();
+					}
 				}
 			}
 			

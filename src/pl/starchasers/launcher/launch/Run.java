@@ -7,7 +7,7 @@ public class Run {
 		 launch = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				new Launch();
+				Launch.runMinecraft();
 			}
 		});
 		 launch.start();

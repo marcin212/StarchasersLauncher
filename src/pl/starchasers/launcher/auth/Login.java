@@ -7,8 +7,12 @@ import com.google.gson.JsonSyntaxException;
 
 import pl.starchasers.launcher.skin.components.BgPasswordTextField;
 import pl.starchasers.launcher.skin.components.BgUserNameTextField;
+import pl.starchasers.launcher.skin.components.LabelLogout;
 import pl.starchasers.launcher.skin.components.LoginTextField;
+import pl.starchasers.launcher.skin.components.LogoutButton;
 import pl.starchasers.launcher.skin.components.PasswordTextField;
+import pl.starchasers.launcher.skin.frame.playerskin.PlayerSkin;
+import pl.starchasers.launcher.skin.frame.playerskin.labelHello;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.Variable;
@@ -31,12 +35,16 @@ public class Login {
 			Config.instance.setProperty("clientToken",response.getClientToken());
 			Config.instance.setProperty("playerUUID", response.getSelectedProfile().getId());
 			Config.instance.setProperty("accessToken", response.getAccessToken());			
+			Config.instance.setProperty("nickname", response.getSelectedProfile().getName());	
 			Config.instance.store(Variable.propertiesPath);			
-		
+			PlayerSkin.instance.setSkin(response.getSelectedProfile().getName());
+			labelHello.instance.setUserName(response.getSelectedProfile().getName());
+			hiddenTextfield(false);
 		} catch (JsonSyntaxException | IOException  e) {
-			
+			hiddenTextfield(true);
 			e.printStackTrace();
 		}
+		
 		return response;		
 	}
 	public static Response loginInWithToken(String token){
@@ -48,7 +56,10 @@ public class Login {
 		try {
 			response = gson.fromJson(Http.executeHttpRequestE(urlrefresh, gson.toJson(query), "POST", "application/json"), Response.class);
 			Config.instance.setProperty("accessToken", response.getAccessToken());
+			Config.instance.setProperty("nickname", response.getSelectedProfile().getName());	
 			Config.instance.store(Variable.propertiesPath);
+			PlayerSkin.instance.setSkin(response.getSelectedProfile().getName());
+			labelHello.instance.setUserName(response.getSelectedProfile().getName());
 		} catch (JsonSyntaxException | IOException e) {
 			setStatus(true);
 			hiddenTextfield(true);
@@ -66,6 +77,10 @@ public class Login {
 		LoginTextField.instance.setVisible(visible);
 		BgUserNameTextField.instance.setVisible(visible);
 		BgPasswordTextField.instance.setVisible(visible);
+		PlayerSkin.instance.setVisible(!visible);
+		labelHello.instance.setVisible(!visible);
+		LogoutButton.instance.setVisible(!visible);
+		LabelLogout.instance.setVisible(!visible);
 	}
 	public static Boolean getCanRun() {
 		return canRun;
