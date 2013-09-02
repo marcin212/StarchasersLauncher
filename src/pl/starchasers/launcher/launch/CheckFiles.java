@@ -20,6 +20,7 @@ public class CheckFiles {
 		List<Libraries> libraries = MinecraftJson.instance.getObjForVersion(Variable.minecraftVersion).getLibraries();
 		downloadBin();
 		downloadLibraries(libraries);
+		downloadForge();
 		new Sync();		
 		ActionLabel.instance.setAction("downloading files...");
 		DownloadJob.downloadJob();
@@ -32,8 +33,8 @@ public class CheckFiles {
 		File f = new File(bindir);
 		if (!f.exists()) f.mkdirs();
 		f = new File(bindir + "/" + Variable.minecraftVersion+".jar");
-		System.out.println("http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar"+":"+Http.getRemoteSize("http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar") +":"+ f.length());
-		if( f.exists() && (Http.getRemoteSize("http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar") != f.length()))
+		//System.out.println("http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar"+":"+Http.getRemoteSize("http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar") +":"+ f.length());
+		if(!f.exists() || (Http.getRemoteSize("http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar") != f.length()))
 			DownloadJob.getList().add(new DownloadFile(
 					"http://s3.amazonaws.com/Minecraft.Download/versions/"+Variable.minecraftVersion+"/"+Variable.minecraftVersion+".jar",
 					"./starchasers/minecraft/bin"));
@@ -55,10 +56,12 @@ public class CheckFiles {
 				
 				dlpath += parts[1] + "-" + parts[2] + ".jar";
 				String temp = Variable.librariesURL + dlpath;
-				File f= new File(dlpath);
+				File f= new File("./starchasers/minecraft/libraries/"+dlpath);
+				//System.out.println(dlpath+":"+temp+":"+Http.getRemoteSize(temp)+":"+f.length());
 				
-				if( f.exists() && (Http.getRemoteSize(temp) != f.length()) )
+				if( !f.exists() || (Http.getRemoteSize(temp) != f.length()) ){
 					DownloadJob.getList().add(new DownloadFile(temp,"./starchasers/minecraft/libraries/"+localPath));
+				}
 				
 			} else {
 
@@ -99,7 +102,8 @@ public class CheckFiles {
 				dlpath += parts[1] + "-" + parts[2] + "-" + nativesString + ".jar";
 				String name = "./starchasers/minecraft/bin/natives/" + dlpath;
 				File f= new File(name);
-				if( f.exists() && (Http.getRemoteSize(Variable.librariesURL + dlpath) != f.length()) ){
+				//System.out.println(name+":"+Variable.librariesURL + dlpath+":"+Http.getRemoteSize(Variable.librariesURL + dlpath)+":"+f.length());
+				if( !f.exists() || (Http.getRemoteSize(Variable.librariesURL + dlpath) != f.length()) ){
 					DownloadJob.getList().add(new DownloadFile(Variable.librariesURL + dlpath, "./starchasers/minecraft/bin/natives/" + dlpath2));				
 					DownloadJob.nativesFile.add(name);
 				}
@@ -114,11 +118,12 @@ public class CheckFiles {
 		 File f2 = new File("./starchasers/minecraft/libraries/" + dlpath);
 			if (!f2.exists()) f2.mkdirs();
 			
-			dlpath += parts[1] + "-" + parts[2] + ".jar";
-			String temp = "http://files.minecraftforge.net/maven/" + dlpath;
-			File f= new File(dlpath);
-			
-			if( f.exists() && (Http.getRemoteSize(temp) != f.length()) )
+			//dlpath += parts[1] + "-" + parts[2] + ".jar";
+			String temp = "http://files.minecraftforge.net/minecraftforge/" + parts[1] + "-"+"universal-1.6.2-" + parts[2] + ".jar";
+			//System.out.println("./starchasers/minecraft/libraries/" + dlpath+ parts[1] + "-"+"universal-1.6.2-" + parts[2] + ".jar");
+			File f= new File("./starchasers/minecraft/libraries/" + dlpath+ parts[1] + "-"+"universal-1.6.2-" + parts[2] + ".jar");
+			System.out.println("FORGE:"+temp);
+			if( !f.exists() || (Http.getRemoteSize(temp) != f.length()) )
 				DownloadJob.getList().add(new DownloadFile(temp,"./starchasers/minecraft/libraries/"+localPath));
 	 }
 }

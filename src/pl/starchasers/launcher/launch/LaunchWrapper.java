@@ -42,7 +42,7 @@ public class LaunchWrapper {
 		
 		libsString += "./libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar"+separator;	
 		libsString += "./libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar"+separator;
-		libsString += "./libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-9.10.0.828.jar"+separator;
+		libsString += "./libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-universal-1.6.2-9.10.0.828.jar"+separator;
 		libsString += "./libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar"+separator;
 		libsString += "./bin/"+Variable.minecraftVersion+".jar";
 		args.add("-cp");
@@ -61,8 +61,6 @@ public class LaunchWrapper {
 		args.add("--tweakClass");
 		args.add("cpw.mods.fml.common.launcher.FMLTweaker");
 
-		
-		//Runtime r = Runtime.getRuntime();
 		String args2 = "";
 		for(String s : args){
 			args2 += s;
@@ -70,7 +68,7 @@ public class LaunchWrapper {
 		System.out.println(args2);
 		try {
 			
-			final Process p =new ProcessBuilder(args).directory(new File("./starchasers/minecraft/")).start(); //r.exec(args2,envp);
+			final Process p =new ProcessBuilder(args).directory(new File("./starchasers/minecraft/")).start();
 			MyFrame.instance.setVisible(false);
 			final BufferedReader stderr = new BufferedReader(
 					new InputStreamReader(p.getErrorStream()));

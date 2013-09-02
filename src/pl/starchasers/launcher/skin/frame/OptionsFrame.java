@@ -1,5 +1,6 @@
 package pl.starchasers.launcher.skin.frame;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+import pl.starchasers.launcher.skin.components.BackGroundLabel;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
@@ -28,13 +31,24 @@ public class OptionsFrame extends JFrame{
 	private int x,y;
 	public OptionsFrame() {
 		instance = this;
-		createList();
-		action();
-		createPanel();
-		add(panel);
-		setLocationRelativeTo(MainFrame.instance.getFrame());
+		setSize(319,439);
 		setUndecorated(true);
-		setSize(300,225);
+		setBackground(new Color(0f,0f,0f,0f));
+		createList();
+		
+		
+		createPanel();
+		action();
+		
+		topAndBot();
+		background();	
+		
+		add(panel);
+	
+		
+		setLocationRelativeTo(MainFrame.instance.getFrame());
+		
+		
 		addMouseMotionListener(new MouseMotionListener() {
 			
 			@Override
@@ -93,21 +107,26 @@ public class OptionsFrame extends JFrame{
 				
 	}
 	private void createPanel(){
+		panel.setBounds(0, 0, getWidth(), getHeight());
+		panel.setLayout(null);
 		for(int i=0;i<list.size();i++){
 			
 			JLabel label= new JLabel(list.get(i)+":");
 			JTextField textfield= new JTextField(Config.instance.getProperty(list.get(i)));
 			label.setBounds(0, i*25, 100, 25);
 			textfield.setBounds(100, i*25, 200, 25);
-			panel.setLayout(null);
+			
 			panel.add(label);
 			panel.add(textfield);
 			mapField.put(list.get(i), textfield);
 		}
+		
 		ok.setBounds(50, list.size()*25, 100, 25);
 		cancel.setBounds(160, list.size()*25, 100, 25);
 		panel.add(ok);
 		panel.add(cancel);
+		panel.setOpaque(false);
+		
 	}
 	
 	private void action(){
@@ -182,6 +201,26 @@ public class OptionsFrame extends JFrame{
 				dispose();
 			}
 		});
+	}
+public void topAndBot(){
+	JLabel panelTop = new JLabel();
+	JLabel panelBot = new JLabel();
+	panelTop.setIcon(new ImageIcon(BackGroundLabel.class.getResource(Variable.resourcePath+"border_options_top.png")));
+	panelTop.setBounds(0,0,319,15);
+	panelTop.setOpaque(false);
+	panelBot.setIcon(new ImageIcon(BackGroundLabel.class.getResource(Variable.resourcePath+"border_options_bot.png")));
+	panelBot.setBounds(0,getHeight()-15,319,15);
+	panelBot.setOpaque(false);
+	panel.add(panelTop);
+	panel.add(panelBot);
+	
+}
+public void background()
+{
+	JLabel panelbackground = new JLabel();
+	panelbackground.setIcon(new ImageIcon(BackGroundLabel.class.getResource(Variable.resourcePath+"options background.png")));
+	panelbackground.setBounds(5,4,getWidth()-5,getHeight()-13);
+	panel.add(panelbackground);
 	}
 }
 

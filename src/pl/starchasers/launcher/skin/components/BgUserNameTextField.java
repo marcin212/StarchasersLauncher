@@ -10,6 +10,7 @@ public class BgUserNameTextField extends JLabel{
 	public static BgUserNameTextField instance;
 	
 	public BgUserNameTextField(){
+		instance = this;
 		setIcon(new ImageIcon(BgUserNameTextField.class.getResource(Variable.resourcePath+"textfield.png")));
 		setBounds(492, 277, 176, 27);
 	}

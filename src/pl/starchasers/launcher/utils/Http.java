@@ -5,10 +5,12 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 
 import pl.starchasers.launcher.skin.components.ActionLabel;
 import pl.starchasers.launcher.skin.components.MyProgressBar;
@@ -96,16 +98,62 @@ public class Http {
 			}
 		}
 	}
-
-	public static long getRemoteSize(String fileURL) {
-		try {
-			URL url = new URL(fileURL);
-			HttpURLConnection connection = (HttpURLConnection) url
-					.openConnection();
-			return connection.getContentLength();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return -1;
-		}
+/////
+	public static String executeHttpRequestE(String targetURL, String urlParameters, String requestType, String contentType) throws IOException {
+		URL url;
+		HttpURLConnection connection = null;
+		
+			url = new URL(targetURL);
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod(requestType);
+			connection.setRequestProperty("Content-Type", contentType);
+			connection.setRequestProperty("Content-Length",
+					"" + Integer.toString(urlParameters.getBytes().length));
+			connection.setRequestProperty("Content-Language", "en-US");
+			connection.setUseCaches(false);
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(
+					connection.getOutputStream());
+			wr.writeBytes(urlParameters);
+			wr.flush();
+			wr.close();
+			InputStream is = connection.getInputStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			String line;
+			StringBuffer response = new StringBuffer();
+			while ((line = rd.readLine()) != null) {
+				response.append(line);
+				response.append('\r');
+			}
+			rd.close();
+			if (connection != null) {
+				connection.disconnect();
+			}
+			return response.toString();	
 	}
+	
+	
+	
+	
+	
+	
+	////
+	public static long getRemoteSize(String fileURL) {
+		 long fileSize=-1;
+	    try {    
+	    	URLConnection connection;
+	        URL urle = new URL(fileURL);
+	        
+	        connection = urle.openConnection();
+	        fileSize = connection.getContentLength();
+	        connection.getInputStream().close();
+	 
+	      } catch(IOException e) {
+	        e.printStackTrace();
+	      } 
+	    return fileSize;
+	}
+
+	
 }

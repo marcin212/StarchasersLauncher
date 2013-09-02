@@ -1,4 +1,5 @@
-package pl.starchasers.launcher.utils.json;
+package pl.starchasers.launcher.auth;
+
 
 public class JsonLogin {
 	private Agent agent = new Agent();

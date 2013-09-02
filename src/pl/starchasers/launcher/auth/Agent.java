@@ -1,4 +1,4 @@
-package pl.starchasers.launcher.utils.json;
+package pl.starchasers.launcher.auth;
 
 public class Agent {
 	private String name = "Minecraft";

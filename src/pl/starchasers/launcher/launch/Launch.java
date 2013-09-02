@@ -1,45 +1,57 @@
 package pl.starchasers.launcher.launch;
 
-import java.util.UUID;
-
+import pl.starchasers.launcher.auth.Login;
+import pl.starchasers.launcher.auth.Response;
 import pl.starchasers.launcher.skin.components.ActionLabel;
+import pl.starchasers.launcher.skin.components.LabelLaunch;
 import pl.starchasers.launcher.skin.components.LoginTextField;
+import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.skin.components.PasswordTextField;
 import pl.starchasers.launcher.utils.Config;
-import pl.starchasers.launcher.utils.Http;
-import pl.starchasers.launcher.utils.json.JsonLogin;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
 import pl.starchasers.launcher.utils.json.Version;
 
-import com.google.gson.Gson;
-
 public class Launch {
-	public String token = "";
-	public String name = "";
-	@SuppressWarnings("deprecation")
-	public Launch(){
-	if(Config.instance.getProperty("non-premium").compareTo("false")==0){
-		
-		Gson gson = new Gson();
-		JsonLogin payload = new JsonLogin();
-		payload.setUsername(LoginTextField.instance.getText());
-		payload.setPassword(PasswordTextField.instance.getText());
-		payload.setClientToken(Config.instance.getProperty("clientToken"));
-		String pts = gson.toJson(payload);
+	public static String name = "";
+	private static String token;
+
+	public static void login(){
 		ActionLabel.instance.setAction("logging in...");
-		String response = Http.executeHttpRequest("https://authserver.mojang.com/authenticate", pts, "POST", "application/json");
-		Response resp = gson.fromJson(response, Response.class);
-		token = "token:" + resp.getAccessToken() + ":" + resp.getSelectedProfile().getId();
-		name = resp.getSelectedProfile().getName();
-	}else{
-		token = UUID.randomUUID().toString();
-		name = LoginTextField.instance.getText();
-	}
+		LabelLaunch.instance.setText("Logging in");
+		Response response = Login.loginInWithToken(Config.instance.getProperty("accessToken"));
 		
+		if(response != null){
+			ActionLabel.instance.setAction("launch minecraft!");
+			LabelLaunch.instance.setText("Launch");
+			Login.setCanRun(true);
+			Login.setStatus(false);
+			token = "token:" + response.getAccessToken() + ":" + response.getSelectedProfile().getId();
+			name = response.getSelectedProfile().getName();
+		}else{
+			LabelLaunch.instance.setText("Log in");
+			Login.setStatus(true);
+		}
+
+	}
+	public static  void runButton(){
+			
+			@SuppressWarnings("deprecation")
+			Response response = Login.loginInWithPassword(LoginTextField.instance.getText(), PasswordTextField.instance.getText());
+			if(response != null){
+				token = "token:" + response.getAccessToken() + ":" + response.getSelectedProfile().getId();
+				name = response.getSelectedProfile().getName();
+				ActionLabel.instance.setAction("launch minecraft!");
+				LabelLaunch.instance.setText("Launch");
+				Login.setCanRun(true);
+				Login.setStatus(false);
+			}	
+	}
+	
+	public static void runMinecraft(){
 		new MinecraftJson();
 		Version ver = MinecraftJson.instance.getObjForVersion("1.6.2");
 		ActionLabel.instance.setAction("checking files...");
-		new DownloadResources();
+		//new DownloadResources();
 		//new CheckFiles();
 		ActionLabel.instance.setAction("launching minecraft...");
 		try {
@@ -48,6 +60,6 @@ public class Launch {
 			e.printStackTrace();
 		}
 		
-		new LaunchWrapper(token,ver,name);
+		//new LaunchWrapper(token,ver,name);
 	}
 }

@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTextField;
 
+import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.skin.MyFont;
 
 public class LoginTextField extends JTextField {

@@ -10,6 +10,7 @@ public class BgPasswordTextField extends JLabel{
 	public static BgPasswordTextField instance;
 	
 	public BgPasswordTextField(){
+		instance = this;
 		setIcon(new ImageIcon(BgUserNameTextField.class.getResource(Variable.resourcePath+"textfield.png")));
 		setBounds(492, 319, 176, 27);
 	}

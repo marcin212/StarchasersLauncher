@@ -1,5 +1,5 @@
 
-package pl.starchasers.launcher.launch;
+package pl.starchasers.launcher.auth;
 
 public class SelectedProfile{
    	private String id;

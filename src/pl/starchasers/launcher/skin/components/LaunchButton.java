@@ -3,6 +3,8 @@ package pl.starchasers.launcher.skin.components;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import pl.starchasers.launcher.auth.Login;
+import pl.starchasers.launcher.launch.Launch;
 import pl.starchasers.launcher.launch.Run;
 import pl.starchasers.launcher.utils.Variable;
 
@@ -43,7 +45,12 @@ public class LaunchButton extends MyButton{
 			public void mouseClicked(MouseEvent arg0) {
 				setIcon(getUpIcon());
 				LabelLaunch.instance.mouseClicked();
-				Run.start();
+				if(Login.getStatus()){
+					Launch.runButton();
+				}else if(Login.getCanRun()){
+					Run.start();
+				}
+
 			}
 		});
 	}

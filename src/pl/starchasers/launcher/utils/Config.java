@@ -46,7 +46,11 @@ public class Config extends Properties{
 		p.setProperty("Xmx", "1024M");
 		p.setProperty("PermGen", "128M");
 		p.setProperty("AddJVMArgs", "");
+		
 		p.setProperty("clientToken", "");
+		p.setProperty("playerUUID", "");
+		p.setProperty("accessToken", "");
+		p.setProperty("forceupdate", "0");
 		p.setProperty("nickname","");
 		p.setProperty("rememberPass", "false");
 		p.setProperty("sync-server", "http://starchasers.pl/starchasers/");

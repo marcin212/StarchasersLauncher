@@ -1,7 +1,8 @@
 
-package pl.starchasers.launcher.launch;
+package pl.starchasers.launcher.auth;
 
 import java.util.List;
+
 
 public class Response{
    	private String accessToken;

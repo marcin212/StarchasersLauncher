@@ -28,7 +28,7 @@ public class Sync {
 	public Sync() {
 		if(Config.instance.getProperty("sync-server")!=""){
 			ActionLabel.instance.setAction("checking files...");
-			searchFiles("./config", true, fileConfig);
+			//searchFiles("./config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/mods", false, fileMod);
 			fileList.setModList(fileMod);
@@ -48,6 +48,7 @@ public class Sync {
 	public void compare() {
 		boolean test;
 		for (int i = 0; i < fileListExternal.getConfigList().size(); i++) {
+
 				test=false;
 			for (int j = 0; j < fileList.getConfigList().size(); j++) {	
 				if (fileListExternal.getConfigList().get(i).getFileName().compareTo(fileList.getConfigList().get(j).getFileName())==0
