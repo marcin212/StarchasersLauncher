@@ -23,7 +23,14 @@ public class LabelLaunch extends JLabel {
 		setBounds(493, 386, 114, 27);
 		setFont(new MyFont().returnFont());
 	}
-
+	public LabelLaunch(String name,int x, int y, int width, int height) {
+		super(name);
+		setForeground(upColor);
+		setHorizontalAlignment(SwingConstants.CENTER);
+		setOpaque(false);
+		setBounds(x, y, width, height);
+		setFont(new MyFont().returnFont());
+	}
 	public void mouseReleased() {
 		setForeground(overColor);
 	}

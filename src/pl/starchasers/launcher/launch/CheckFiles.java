@@ -9,6 +9,7 @@ import pl.starchasers.launcher.skin.components.ActionLabel;
 import pl.starchasers.launcher.sync.DownloadFile;
 import pl.starchasers.launcher.sync.DownloadJob;
 import pl.starchasers.launcher.sync.Sync;
+import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.Variable;
 import pl.starchasers.launcher.utils.json.Libraries;
@@ -18,8 +19,10 @@ public class CheckFiles {
 	CheckFiles() {
 		ActionLabel.instance.setAction("checking files...");
 		List<Libraries> libraries = MinecraftJson.instance.getObjForVersion(Variable.minecraftVersion).getLibraries();
+		if(Config.instance.getProperty("forceupdate").compareTo("true")==0){
 		downloadBin();
 		downloadLibraries(libraries);
+		}
 		downloadForge();
 		new Sync();		
 		ActionLabel.instance.setAction("downloading files...");

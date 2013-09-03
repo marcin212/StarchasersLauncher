@@ -5,7 +5,6 @@ import pl.starchasers.launcher.auth.Response;
 import pl.starchasers.launcher.skin.components.ActionLabel;
 import pl.starchasers.launcher.skin.components.LabelLaunch;
 import pl.starchasers.launcher.skin.components.LoginTextField;
-import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.skin.components.PasswordTextField;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
@@ -13,6 +12,7 @@ import pl.starchasers.launcher.utils.json.Version;
 
 public class Launch {
 	public static String name = "";
+
 	private static String token ="";
 
 	public static void login() {
@@ -59,7 +59,7 @@ public class Launch {
 		Version ver = MinecraftJson.instance.getObjForVersion("1.6.2");
 		ActionLabel.instance.setAction("checking files...");
 		new DownloadResources();
-		// new CheckFiles();
+		new CheckFiles();
 		ActionLabel.instance.setAction("launching minecraft...");
 		try {
 			Thread.sleep(2000);
@@ -67,6 +67,7 @@ public class Launch {
 			e.printStackTrace();
 		}
 
-		// new LaunchWrapper(token,ver,name);
+		new LaunchWrapper(token,ver,name);
+		Config.instance.setProperty("forceupdate","false");
 	}
 }

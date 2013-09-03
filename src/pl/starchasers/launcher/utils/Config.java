@@ -49,11 +49,9 @@ public class Config extends Properties{
 		p.setProperty("clientToken", "");
 		p.setProperty("playerUUID", "");
 		p.setProperty("accessToken", "");
-		p.setProperty("forceupdate", "0");
+		p.setProperty("forceupdate", "true");
 		p.setProperty("nickname","");
-		p.setProperty("rememberPass", "false");
 		p.setProperty("sync-server", "http://starchasers.pl/starchasers/");
-		p.setProperty("non-premium", "false");
 		return p;
 	}
 	public void setPropertyInt(String key, int value) {

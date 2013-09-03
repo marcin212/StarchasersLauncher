@@ -77,6 +77,7 @@ public class PasswordTextField extends JPasswordField{
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
+
 				if(e.getKeyCode()==10){
 					if(Login.getStatus()){
 						Launch.runButton();
