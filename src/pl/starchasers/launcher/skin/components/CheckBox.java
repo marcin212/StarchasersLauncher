@@ -1,6 +1,8 @@
 package pl.starchasers.launcher.skin.components;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -8,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
 import pl.starchasers.launcher.skin.MyFont;
+import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class CheckBox extends JCheckBox {
@@ -15,7 +18,7 @@ public class CheckBox extends JCheckBox {
 	public static CheckBox instance;
 
 	public CheckBox() {
-		super("Remember");
+		super("Vanilla?");
 		instance = this;
 		setBounds(510, 355, 97, 23);
 		setOpaque(false);
@@ -25,6 +28,8 @@ public class CheckBox extends JCheckBox {
 		setBorderPainted(false);
 		setContentAreaFilled(false);
 		setFocusable(false);
+		
+		setSelected(Config.instance.getProperty("vanilla").equals("true"));
 		setIcon(new ImageIcon(
 				CheckBox.class.getResource(Variable.resourcePath
 						+ "check_off_up.png")));
@@ -64,9 +69,20 @@ public class CheckBox extends JCheckBox {
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 			}
 		});
+		addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (isSelected()) {
+                	Config.instance.setProperty("vanilla", "true");
+                } else {
+                	Config.instance.setProperty("vanilla", "false");
+                }
+                Config.instance.store(Variable.workingDir + "starchasers.properties");
+            }
+        });
 	}
 
 }

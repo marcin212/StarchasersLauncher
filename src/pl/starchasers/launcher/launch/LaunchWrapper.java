@@ -15,6 +15,7 @@ import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.Version;
 
 public class LaunchWrapper {
+	public static String Forgeversion;
 	@SuppressWarnings("deprecation")
 	public LaunchWrapper(String token, Version ver,String name) {
 		List<String> args = new ArrayList<String>();
@@ -39,15 +40,16 @@ public class LaunchWrapper {
 			String lib = libparts[0].replace(".", "/") + "/" + libparts[1] + "/" + libparts[2] + "/" + libparts[1] + "-" + libparts[2] + ".jar";
 			libsString += "./libraries/" + lib + separator;
 		}
-		
-		libsString += "./libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar"+separator;	
-		libsString += "./libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar"+separator;
-		libsString += "./libraries/"+"net/minecraftforge/minecraftforge/9.10.0.828/minecraftforge-universal-1.6.2-9.10.0.828.jar"+separator;
-		libsString += "./libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar"+separator;
+		if(Config.instance.getProperty("vanilla").equals("false")){
+			libsString += "./libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar"+separator;	
+			libsString += "./libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar"+separator;
+			libsString += "./libraries/"+"net/minecraftforge/minecraftforge/"+Forgeversion+"/minecraftforge-universal-1.6.2-"+Forgeversion+".jar"+separator;
+			libsString += "./libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar"+separator;
+		}
 		libsString += "./bin/"+Variable.minecraftVersion+".jar";
 		args.add("-cp");
 		args.add(libsString);
-		args.add("net.minecraft.launchwrapper.Launch");
+		if(Config.instance.getProperty("vanilla").equals("false")){args.add("net.minecraft.launchwrapper.Launch");}else{args.add("net.minecraft.client.main.Main");}
 		args.add("--username");
 		args.add(name);
 		args.add("--session");
@@ -58,8 +60,7 @@ public class LaunchWrapper {
 		args.add("./");
 		args.add("--assetsDir");
 		args.add("./assets");
-		args.add("--tweakClass");
-		args.add("cpw.mods.fml.common.launcher.FMLTweaker");
+		if(Config.instance.getProperty("vanilla").equals("false")){args.add("--tweakClass"); args.add("cpw.mods.fml.common.launcher.FMLTweaker");}
 
 		String args2 = "";
 		for(String s : args){

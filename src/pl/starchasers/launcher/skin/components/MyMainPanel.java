@@ -22,7 +22,7 @@ public class MyMainPanel extends JPanel {
 		add(new ActionLabel());
 		add(new MyProgressBar());
 		add(new OptionsButton());
-		//add(new CheckBox());
+		add(new CheckBox());
 		add(new WebSiteButton());
 		add(new ButtonClose());
 		add(new LabelLaunch());

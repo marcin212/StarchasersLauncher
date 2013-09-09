@@ -23,8 +23,10 @@ public class CheckFiles {
 		downloadBin();
 		downloadLibraries(libraries);
 		}
-		downloadForge();
-		new Sync();		
+			if(Config.instance.getProperty("vanilla").equals("false")){
+			downloadForge();
+			new Sync();		
+		}
 		ActionLabel.instance.setAction("downloading files...");
 		DownloadJob.downloadJob();
 		ActionLabel.instance.setZero();
@@ -126,6 +128,7 @@ public class CheckFiles {
 			//System.out.println("./starchasers/minecraft/libraries/" + dlpath+ parts[1] + "-"+"universal-1.6.2-" + parts[2] + ".jar");
 			File f= new File("./starchasers/minecraft/libraries/" + dlpath+ parts[1] + "-"+"universal-1.6.2-" + parts[2] + ".jar");
 			System.out.println("FORGE:"+temp);
+			LaunchWrapper.Forgeversion = parts[2];
 			if( !f.exists() || (Http.getRemoteSize(temp) != f.length()) )
 				DownloadJob.getList().add(new DownloadFile(temp,"./starchasers/minecraft/libraries/"+localPath));
 	 }

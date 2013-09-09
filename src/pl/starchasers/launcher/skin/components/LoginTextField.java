@@ -7,9 +7,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.UUID;
+
 import javax.swing.JTextField;
 
 
+import pl.starchasers.launcher.launch.Launch;
 import pl.starchasers.launcher.launch.Run;
 import pl.starchasers.launcher.skin.MyFont;
 import pl.starchasers.launcher.utils.Config;
@@ -81,6 +84,8 @@ public class LoginTextField extends JTextField {
 
 				if(e.getKeyCode()==112){
 					Config.instance.setProperty("nickname", LoginTextField.instance.getText());
+					Launch.name = LoginTextField.instance.getText();
+					Launch.token = UUID.randomUUID().toString(); 
 					Run.start();
 					}
 			}

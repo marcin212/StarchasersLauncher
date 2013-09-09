@@ -13,7 +13,7 @@ import pl.starchasers.launcher.utils.json.Version;
 public class Launch {
 	public static String name = "";
 
-	private static String token ="";
+	public static String token ="";
 
 	public static void login() {
 		ActionLabel.instance.setAction("logging in...");

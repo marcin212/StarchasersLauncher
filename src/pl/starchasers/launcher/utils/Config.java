@@ -51,6 +51,7 @@ public class Config extends Properties{
 		p.setProperty("accessToken", "");
 		p.setProperty("forceupdate", "true");
 		p.setProperty("nickname","");
+		p.setProperty("vanilla","false");
 		p.setProperty("sync-server", "http://starchasers.pl/starchasers/");
 		return p;
 	}

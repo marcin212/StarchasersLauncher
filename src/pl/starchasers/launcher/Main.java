@@ -21,6 +21,6 @@ public class Main {
 		Launch.login();
 
 		Config.instance.store(Variable.workingDir + "starchasers.properties");
-		
+
 	}
 }
