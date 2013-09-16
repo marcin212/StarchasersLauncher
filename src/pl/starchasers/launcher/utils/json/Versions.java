@@ -1,7 +1,5 @@
 package pl.starchasers.launcher.utils.json;
 
-
-
 import java.util.List;
 
 public class Versions {
@@ -11,11 +9,12 @@ public class Versions {
 	public class Latest {
 		private String snapshot;
 		private String release;
-		
-		public String getSnapshot(){
+
+		public String getSnapshot() {
 			return this.snapshot;
 		}
-		public String getRelease(){
+
+		public String getRelease() {
 			return this.release;
 		}
 	}

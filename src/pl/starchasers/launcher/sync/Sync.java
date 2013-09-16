@@ -31,6 +31,7 @@ public class Sync {
 			//searchFiles("./config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/mods", false, fileMod);
+			searchFiles("./starchasers/minecraft/mods/1.6.2", false, fileMod);
 			fileList.setModList(fileMod);
 			fileList.setConfigList(fileConfig);
 			compare();

@@ -5,10 +5,17 @@ import java.util.Map;
 
 public class Libraries {
 	private String name;
+	private String url;
 	private List<Rules> rules;
 	private Map<String, String> natives;
 	private ExtractRules extract;
-
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public Libraries(String name){
 		this.name = name;
 	}
