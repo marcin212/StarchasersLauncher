@@ -3,7 +3,6 @@ package pl.starchasers.launcher.auth;
 
 public class JsonLogin {
 	private Agent agent = new Agent();
-	@SuppressWarnings("unused")
 	private String clientToken, password, username;
 
 	public Agent getAgent() {
@@ -24,5 +23,17 @@ public class JsonLogin {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 }
