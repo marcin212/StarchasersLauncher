@@ -2,6 +2,7 @@ package pl.starchasers.launcher.skin.components;
 
 import javax.swing.JPanel;
 
+import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.frame.playerskin.PlayerSkin;
 import pl.starchasers.launcher.skin.frame.playerskin.labelHello;
 
@@ -22,7 +23,9 @@ public class MyMainPanel extends JPanel {
 		add(new ActionLabel());
 		add(new MyProgressBar());
 		add(new OptionsButton());
-		add(new CheckBox());
+		add(new ProfileList(Main.profiles));
+		add(new ManageProfilesButton());
+		//add(new CheckBox());
 		add(new WebSiteButton());
 		add(new ButtonClose());
 		add(new LabelLaunch());

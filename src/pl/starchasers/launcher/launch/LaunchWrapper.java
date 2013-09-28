@@ -1,22 +1,21 @@
 package pl.starchasers.launcher.launch;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.components.ActionLabel;
 import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.utils.Config;
+import pl.starchasers.launcher.utils.Utils;
 import pl.starchasers.launcher.utils.Variable;
 import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.Version;
 
 public class LaunchWrapper {
 	public static String Forgeversion;
-	@SuppressWarnings("deprecation")
 	public LaunchWrapper(String token, Version ver,String name) {
 		List<String> args = new ArrayList<String>();
 		String separator = "";
@@ -32,7 +31,9 @@ public class LaunchWrapper {
 		List<Libraries> libs = ver.getLibraries();
 		Iterator<Libraries> it = libs.iterator();
 		while (it.hasNext()) {
+			
 			String temp = it.next().getName();
+			System.out.println(temp);
 			if(temp.contains("debug")||temp.contains("platform")){
 				continue;
 			}
@@ -40,12 +41,10 @@ public class LaunchWrapper {
 			String lib = libparts[0].replace(".", "/") + "/" + libparts[1] + "/" + libparts[2] + "/" + libparts[1] + "-" + libparts[2] + ".jar";
 			libsString += "./libraries/" + lib + separator;
 		}
-		if(Config.instance.getProperty("vanilla").equals("false")){
-			libsString += "./libraries/"+"org/ow2/asm/asm-all/4.1/asm-all-4.1.jar"+separator;	
-			libsString += "./libraries/"+"lzma/lzma/0.0.1/lzma-0.0.1.jar"+separator;
+		if(Config.instance.getProperty("vanilla").equals("false"))
 			libsString += "./libraries/"+"net/minecraftforge/minecraftforge/"+Forgeversion+"/minecraftforge-universal-1.6.2-"+Forgeversion+".jar"+separator;
-			libsString += "./libraries/"+"net/minecraft/launchwrapper/1.3/launchwrapper-1.3.jar"+separator;
-		}
+			
+		
 		libsString += "./bin/"+Variable.minecraftVersion+".jar";
 		args.add("-cp");
 		args.add(libsString);
@@ -68,43 +67,17 @@ public class LaunchWrapper {
 		}
 		System.out.println(args2);
 		try {
-			
-			final Process p =new ProcessBuilder(args).directory(new File("./starchasers/minecraft/")).start();
+			ProcessBuilder pb =new ProcessBuilder(args).directory(new File("./starchasers/minecraft/"));
+			Process p = pb.start();
+			Utils.inheritIO(p.getInputStream(),Main.console.getOut());
+			Utils.inheritIO(p.getErrorStream(),Main.console.getOut());
 			MyFrame.instance.setVisible(false);
-			final BufferedReader stderr = new BufferedReader(
-					new InputStreamReader(p.getErrorStream()));
-			final BufferedReader stdout = new BufferedReader(
-					new InputStreamReader(p.getInputStream()));
-			final Runnable r2 = new Runnable() {
-				public void run() {
-					while (true) {
-						try {
-								Thread.sleep(1);
-							if (p.getErrorStream().available() != 0) {
-								System.out.println(stderr.readLine());
-							}
-							if (p.getInputStream().available() != 0) {
-								System.out.println(stdout.readLine());
-							}
-
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			};
-			Thread srt = new Thread(r2);
-			srt.start();
-			try {
-				System.out.println(p.waitFor());
-				srt.stop();
-				ActionLabel.instance.setAction("");
-				MyFrame.instance.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+				ActionLabel.instance.setAction("");
+				MyFrame.instance.setVisible(true);
 		}
 
 	}

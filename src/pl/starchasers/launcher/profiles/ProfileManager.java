@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
 
 import com.google.gson.Gson;
@@ -14,11 +15,12 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class ProfileManager {
-	private static ArrayList<Profile> profileslist = new ArrayList<Profile>();
+	private ArrayList<Profile> profileslist = new ArrayList<Profile>();
 	private Gson gson = new Gson();
 
 	public ProfileManager() {
 		loadProfiles();
+
 	}
 
 	public void saveProfiles() {
@@ -35,14 +37,17 @@ public class ProfileManager {
 		try {
 			String content = "";
 			File f = new File("./config/profiles.json");
-			if(!f.exists()) saveProfiles();
+			if (!f.exists())
+				saveProfiles();
 			Scanner reader = new Scanner(f);
 			while (reader.hasNextLine())
 				content += reader.nextLine();
-			profileslist = gson.fromJson(content,new TypeToken<ArrayList<Profile>>(){}.getType());
+			profileslist = gson.fromJson(content,
+					new TypeToken<ArrayList<Profile>>() {
+					}.getType());
 			reader.close();
-			if(profileslist==null || profileslist.size()==0){
-				profileslist =new ArrayList<Profile>();
+			if (profileslist == null || profileslist.size() == 0) {
+				profileslist = new ArrayList<Profile>();
 				defaultProfile();
 			}
 		} catch (FileNotFoundException e) {
@@ -50,12 +55,13 @@ public class ProfileManager {
 		} catch (JsonSyntaxException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
 
 	public void defaultProfile() {
 		Profile defaultprofile = new Profile();
-		defaultprofile.setMinecraftversion(new MinecraftJson().getCurrentVersion());
+		defaultprofile.setMinecraftversion(new MinecraftJson()
+				.getCurrentVersion());
 		defaultprofile.setXms("128M");
 		defaultprofile.setXmx("512M");
 		defaultprofile.setProfilname("Default");
@@ -65,4 +71,30 @@ public class ProfileManager {
 		profileslist.add(defaultprofile);
 		saveProfiles();
 	}
+
+	public void addProfile(Profile profile) {
+		profileslist.add(profile);
+		saveProfiles();
+	}
+
+	public void getProfileFromURL(String url) {
+		String response = Http.executeHttpRequest(url, "", "GET",
+				"application/json");
+		addProfile(gson.fromJson(response, Profile.class));
+	}
+	
+	public void deleteProfile(int index){
+		profileslist.remove(index);
+		saveProfiles();
+		
+	}
+
+	public ArrayList<Profile> getProfileslist() {
+		return profileslist;
+	}
+
+	public void setProfileslist(ArrayList<Profile> profileslist) {
+		this.profileslist = profileslist;
+	}
+
 }
