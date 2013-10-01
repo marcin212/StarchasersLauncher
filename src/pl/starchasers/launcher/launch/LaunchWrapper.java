@@ -7,7 +7,6 @@ import java.util.List;
 
 import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.components.ActionLabel;
-import pl.starchasers.launcher.skin.components.MyFrame;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Utils;
 import pl.starchasers.launcher.utils.Variable;
@@ -71,13 +70,13 @@ public class LaunchWrapper {
 			Process p = pb.start();
 			Utils.inheritIO(p.getInputStream(),Main.console.getOut());
 			Utils.inheritIO(p.getErrorStream(),Main.console.getOut());
-			MyFrame.instance.setVisible(false);
+			Main.getFrame().setVisible(false);
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 				ActionLabel.instance.setAction("");
-				MyFrame.instance.setVisible(true);
+				Main.getFrame().setVisible(true);
 		}
 
 	}

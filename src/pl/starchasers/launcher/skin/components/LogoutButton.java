@@ -3,18 +3,20 @@ package pl.starchasers.launcher.skin.components;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JPanel;
+
+
 import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
-public class LogoutButton extends MyButton {
+public class LogoutButton extends SuperButton {
 	private static final long serialVersionUID = 1L;
 	public static LogoutButton instance;
 
-	public LogoutButton() {
-		super("", Variable.resourcePath + "button_launch");
+	public LogoutButton(JPanel panel) {
+		super(565, 315, 114, 27,"Log Out", Variable.resourcePath + "button_launch",panel);
 		instance = this;
-		setBounds(565, 315, 114, 27);
 		addMouseListener(new MouseListener() {
 
 			@Override

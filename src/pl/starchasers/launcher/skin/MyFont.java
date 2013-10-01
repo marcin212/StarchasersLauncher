@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 
 
-import pl.starchasers.launcher.skin.components.MyButton;
+import pl.starchasers.launcher.skin.components.SuperButton;
 import pl.starchasers.launcher.utils.Variable;
 
 public class MyFont {
@@ -14,7 +14,7 @@ public class MyFont {
 
 	public MyFont() {
 		try {
-			URL url = MyButton.class.getResource(Variable.resourcePath+ "Caviar_Dreams_Bold.ttf");	
+			URL url = SuperButton.class.getResource(Variable.resourcePath+ "Caviar_Dreams_Bold.ttf");	
 			customFont = Font.createFont(Font.TRUETYPE_FONT,url.openStream()).deriveFont(12f);
 		} catch (FontFormatException e) {
 			e.printStackTrace();

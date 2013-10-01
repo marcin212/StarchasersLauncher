@@ -5,38 +5,30 @@ import java.awt.event.MouseListener;
 import pl.starchasers.launcher.skin.frame.OptionsFrame;
 import pl.starchasers.launcher.utils.Variable;
 
-public class OptionsButton extends MyButton{
+public class OptionsButton extends SuperButton{
 	private static final long serialVersionUID = 1L;
-	public static OptionsButton instance;
 	public OptionsButton() {
-		super("", Variable.resourcePath+"button_options");
-		instance = this;
-		setBounds(613, 387, 26, 26);
+		super(613, 387, 26, 26,"", Variable.resourcePath+"button_options",null);
 		addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				setIcon(getOverIcon());
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				setIcon(getDownIcon());
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				setIcon(getUpIcon());
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				setIcon(getOverIcon());
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setIcon(getUpIcon());
 				if(OptionsFrame.instance == null){
 				new OptionsFrame();
 				}

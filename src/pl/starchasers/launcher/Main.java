@@ -12,13 +12,14 @@ import pl.starchasers.launcher.utils.Variable;
 public class Main {
 	public static ConsoleFrame console;
 	public static ProfileManager profiles = new ProfileManager();
+	private static  MainFrame frame;
 	public static void main(String[] args) {
 		File f = new File(Variable.workingDir);
 		if(!f.exists()){
 			f.mkdirs();
 		}
 		new Config(Variable.workingDir + "starchasers.properties");
-		new MainFrame();
+		setFrame(new MainFrame());
 		console = new ConsoleFrame();
 		System.setOut(Main.console.getOut());
 		System.setErr(Main.console.getOut());
@@ -27,5 +28,11 @@ public class Main {
 
 		//Config.instance.store(Variable.workingDir + "starchasers.properties");
 
+	}
+	public static MainFrame getFrame() {
+		return frame;
+	}
+	public static void setFrame(MainFrame frame) {
+		Main.frame = frame;
 	}
 }

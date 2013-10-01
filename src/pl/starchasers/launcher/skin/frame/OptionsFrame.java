@@ -19,7 +19,7 @@ import pl.starchasers.launcher.skin.MyFont;
 import pl.starchasers.launcher.skin.components.BackGroundLabel;
 import pl.starchasers.launcher.skin.components.BgUserNameTextField;
 import pl.starchasers.launcher.skin.components.LabelLaunch;
-import pl.starchasers.launcher.skin.components.MyButton;
+import pl.starchasers.launcher.skin.components.SuperButton;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
@@ -29,9 +29,9 @@ public class OptionsFrame extends JFrame{
 	public JPanel panel = new JPanel();
 	public List<String> list = new ArrayList<String>();
 	public HashMap<String, JTextField> mapField = new HashMap<String, JTextField>();
-	public MyButton ok  = new MyButton("", Variable.resourcePath+"button_launch");
-	public MyButton cancel = new MyButton("", Variable.resourcePath+"button_launch");
-	public MyButton force = new MyButton("", Variable.resourcePath+"button_launch");
+	public SuperButton ok  = new SuperButton("", Variable.resourcePath+"button_launch");
+	public SuperButton cancel = new SuperButton("", Variable.resourcePath+"button_launch");
+	public SuperButton force = new SuperButton("", Variable.resourcePath+"button_launch");
 	public int index=2;
 	
 	private static JTextField xms = new JTextField();

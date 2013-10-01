@@ -2,26 +2,27 @@ package pl.starchasers.launcher.auth;
 
 
 import java.io.IOException;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import java.util.HashMap;
 
-import pl.starchasers.launcher.skin.components.BgPasswordTextField;
-import pl.starchasers.launcher.skin.components.BgUserNameTextField;
-import pl.starchasers.launcher.skin.components.LabelLogout;
-import pl.starchasers.launcher.skin.components.LoginTextField;
-import pl.starchasers.launcher.skin.components.LogoutButton;
-import pl.starchasers.launcher.skin.components.PasswordTextField;
+import javax.swing.JComponent;
+
+import pl.starchasers.launcher.Main;
+import pl.starchasers.launcher.skin.components.SuperButton;
 import pl.starchasers.launcher.skin.frame.playerskin.PlayerSkin;
 import pl.starchasers.launcher.skin.frame.playerskin.labelHello;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.Variable;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 
 public class Login {
 	private final static String urlauthentication = "https://authserver.mojang.com/authenticate";
 	private final static String urlrefresh= "https://authserver.mojang.com/refresh";
 	private final static Gson gson = new Gson();
+	public static HashMap<String, JComponent> elements = Main.getFrame().getPanel().getElements(); 
 	private static Boolean status = false;
 	private static Boolean canRun = false;
 	public static Response loginInWithPassword(String name, String passwd){
@@ -73,14 +74,14 @@ public class Login {
 		Login.status = status;
 	}
 	public static void hiddenTextfield(Boolean visible){
-		PasswordTextField.instance.setVisible(visible);
-		LoginTextField.instance.setVisible(visible);
-		BgUserNameTextField.instance.setVisible(visible);
-		BgPasswordTextField.instance.setVisible(visible);
-		PlayerSkin.instance.setVisible(!visible);
-		labelHello.instance.setVisible(!visible);
-		LogoutButton.instance.setVisible(!visible);
-		LabelLogout.instance.setVisible(!visible);
+		elements.get("PASSWORD").setVisible(visible);
+		elements.get("BG_PASSWD").setVisible(visible);
+		elements.get("LOGIN").setVisible(visible);
+		elements.get("BG_LOGIN").setVisible(visible);
+		elements.get("PLAYER_SKIN").setVisible(!visible);
+		elements.get("LABEL_HELLO").setVisible(!visible);
+		elements.get("LOGOUT").setVisible(!visible);
+		((SuperButton)elements.get("LOGOUT")).getButtonLabel().setVisible(!visible);
 	}
 	public static Boolean getCanRun() {
 		return canRun;
