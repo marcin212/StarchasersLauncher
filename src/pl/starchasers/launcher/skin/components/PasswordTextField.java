@@ -1,30 +1,24 @@
 package pl.starchasers.launcher.skin.components;
 
-import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JPasswordField;
+
+import javax.swing.JLayeredPane;
 
 import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.launch.Launch;
 import pl.starchasers.launcher.launch.Run;
-import pl.starchasers.launcher.skin.MyFont;
+import pl.starchasers.launcher.skin.SuperPasswordTextField;
 
-public class PasswordTextField extends JPasswordField{
+public class PasswordTextField extends SuperPasswordTextField{
 	private static final long serialVersionUID = 1L;
-	public static PasswordTextField instance;
-	public PasswordTextField(){
-		super("Password");
-		instance = this;
+	public PasswordTextField(JLayeredPane panel){
+		super("Password", 510, 319, 152, 27, panel);
 		setBounds(510, 319, 152, 27);
-		setOpaque(false);
-		setForeground(new Color(84, 91, 100));
-		setFont(new MyFont().returnFont());
-		setBorder(null);
 		addMouseListener(new MouseListener() {
 			
 			@Override

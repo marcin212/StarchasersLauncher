@@ -12,10 +12,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import pl.starchasers.launcher.skin.components.ActionLabel;
+import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.components.MyProgressBar;
+import pl.starchasers.launcher.skin.panels.Contents;
 
 public class Http {
+	public static Contents elements = Main.getFrame().getPanel(); 
 	public static boolean exists(String url) {
 		try {
 			HttpURLConnection.setFollowRedirects(false);
@@ -31,8 +33,8 @@ public class Http {
 	public static void download(String fileURL, String destinationDirectory,float part){
 		try{
 	 	String downloadedFileName = fileURL.substring(fileURL.lastIndexOf("/") + 1);
-		ActionLabel.instance.addElement(downloadedFileName.replace("%20"," "));
-	 	ActionLabel.instance.setProgress(0);
+	 	elements.getActionLabel().addElement(downloadedFileName.replace("%20"," "));
+	 	elements.getActionLabel().setProgress(0);
         URL url=new URL(fileURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int filesize = connection.getContentLength();
@@ -48,7 +50,7 @@ public class Http {
             	totalDataRead=totalDataRead+i;
             	bout.write(data,0,i);
             	float Percent=totalDataRead/filesize;
-            	ActionLabel.instance.setProgress(Percent);
+            	elements.getActionLabel().setProgress(Percent);
             	MyProgressBar.instance.setProgress(startProgress+(Percent*part));
             	Thread.sleep(1);
             }  

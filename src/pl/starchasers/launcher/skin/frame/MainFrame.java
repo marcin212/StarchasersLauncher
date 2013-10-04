@@ -9,8 +9,6 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-
-import pl.starchasers.launcher.skin.panels.BgLayer;
 import pl.starchasers.launcher.skin.panels.Contents;
 import pl.starchasers.launcher.utils.Variable;
 

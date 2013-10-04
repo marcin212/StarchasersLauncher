@@ -2,15 +2,11 @@ package pl.starchasers.launcher.auth;
 
 
 import java.io.IOException;
-import java.util.HashMap;
-
-import javax.swing.JComponent;
 
 import pl.starchasers.launcher.Main;
-import pl.starchasers.launcher.skin.SuperButton;
-import pl.starchasers.launcher.skin.SuperTextField;
 import pl.starchasers.launcher.skin.frame.playerskin.PlayerSkin;
 import pl.starchasers.launcher.skin.frame.playerskin.labelHello;
+import pl.starchasers.launcher.skin.panels.Contents;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.Variable;
@@ -23,7 +19,7 @@ public class Login {
 	private final static String urlauthentication = "https://authserver.mojang.com/authenticate";
 	private final static String urlrefresh= "https://authserver.mojang.com/refresh";
 	private final static Gson gson = new Gson();
-	public static HashMap<String, JComponent> elements = Main.getFrame().getPanel().getElements(); 
+	public static Contents elements = Main.getFrame().getPanel(); 
 	private static Boolean status = false;
 	private static Boolean canRun = false;
 	public static Response loginInWithPassword(String name, String passwd){
@@ -75,14 +71,14 @@ public class Login {
 		Login.status = status;
 	}
 	public static void hiddenTextfield(Boolean visible){
-		elements.get("PASSWORD").setVisible(visible);
-		elements.get("BG_PASSWD").setVisible(visible);
-		elements.get("LOGIN").setVisible(visible);
-		((SuperTextField)elements.get("LOGIN")).getLabeltextfield().setVisible(visible);
-		elements.get("PLAYER_SKIN").setVisible(!visible);
-		elements.get("LABEL_HELLO").setVisible(!visible);
-		elements.get("LOGOUT").setVisible(!visible);
-		((SuperButton)elements.get("LOGOUT")).getButtonLabel().setVisible(!visible);
+		elements.getTextfieldPassword().setVisible(visible);
+		elements.getTextfieldPassword().getLabeltextfield().setVisible(visible);
+		elements.getTextFieldUsername().setVisible(visible);
+		elements.getTextFieldUsername().getLabeltextfield().setVisible(visible);
+		elements.getPlayerSkin().setVisible(!visible);
+		elements.getLabelHello().setVisible(!visible);
+		elements.getButtonLogOut().setVisible(!visible);
+		elements.getButtonLogOut().getButtonLabel().setVisible(!visible);
 	}
 	public static Boolean getCanRun() {
 		return canRun;

@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import pl.starchasers.launcher.skin.components.ActionLabel;
+import pl.starchasers.launcher.Main;
+import pl.starchasers.launcher.skin.panels.Contents;
 import pl.starchasers.launcher.sync.DownloadFile;
 import pl.starchasers.launcher.sync.DownloadJob;
 import pl.starchasers.launcher.sync.Sync;
@@ -16,8 +17,9 @@ import pl.starchasers.launcher.utils.json.Libraries;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
 
 public class CheckFiles {
+	private Contents components = Main.getFrame().getPanel();
 	CheckFiles() {
-		ActionLabel.instance.setAction("checking files...");
+		components.getActionLabel().setAction("checking files...");
 		List<Libraries> libraries = MinecraftJson.instance.getObjForVersion(Variable.minecraftVersion).getLibraries();
 		downloadBin();
 		downloadLibraries(libraries);
@@ -25,9 +27,9 @@ public class CheckFiles {
 			downloadForge();
 			new Sync();		
 		}
-		ActionLabel.instance.setAction("downloading files...");
+			components.getActionLabel().setAction("downloading files...");
 		DownloadJob.downloadJob();
-		ActionLabel.instance.setZero();
+		components.getActionLabel().setZero();
 	}
 
 		

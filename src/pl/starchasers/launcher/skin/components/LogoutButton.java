@@ -39,8 +39,8 @@ public class LogoutButton extends SuperButton {
 				Config.instance.setProperty("accessToken", "");
 				Login.setCanRun(false);
 				Login.setStatus(true);
-				((LaunchButton)Main.getFrame().getPanel().getElements().get("LAUNCH")).getButtonLabel().setText("Log in");
-				((ActionLabel)Main.getFrame().getPanel().getElements().get("ACTIONLABEL")).setAction("log in");
+				((LaunchButton)Main.getFrame().getPanel().getButtonLaunch()).getButtonLabel().setText("Log in");
+				((ActionLabel)Main.getFrame().getPanel().getActionLabel()).setAction("log in");
 				Login.hiddenTextfield(true);
 			}
 		});

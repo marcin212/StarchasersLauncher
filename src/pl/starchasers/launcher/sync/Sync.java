@@ -8,7 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.starchasers.launcher.skin.components.ActionLabel;
+import pl.starchasers.launcher.Main;
+import pl.starchasers.launcher.skin.panels.Contents;
 import pl.starchasers.launcher.sync.mods.FileInfo;
 import pl.starchasers.launcher.sync.mods.FileList;
 import pl.starchasers.launcher.utils.Config;
@@ -24,10 +25,10 @@ public class Sync {
 	public Gson gson = new Gson();
 	public FileList fileListExternal = gson.fromJson(json, FileList.class);
 	public List<String> toDelete = new ArrayList<String>();
-
+	public static Contents elements = Main.getFrame().getPanel();  
 	public Sync() {
 		if(Config.instance.getProperty("sync-server")!=""){
-			ActionLabel.instance.setAction("checking files...");
+			elements.getActionLabel().setAction("checking files...");
 			//searchFiles("./config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/config", true, fileConfig);
 			searchFiles("./starchasers/minecraft/mods", false, fileMod);
@@ -35,7 +36,7 @@ public class Sync {
 			fileList.setModList(fileMod);
 			fileList.setConfigList(fileConfig);
 			compare();
-			ActionLabel.instance.setAction("deleting useless files...");
+			elements.getActionLabel().setAction("deleting useless files...");
 			deleteFiles();
 		}	
 	}

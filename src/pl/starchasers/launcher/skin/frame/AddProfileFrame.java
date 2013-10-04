@@ -11,35 +11,29 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
 import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.MyFont;
 import pl.starchasers.launcher.skin.SuperButton;
-import pl.starchasers.launcher.skin.components.BgUserNameTextField;
-import pl.starchasers.launcher.skin.components.LabelLaunch;
 import pl.starchasers.launcher.skin.components.ProfileList;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class AddProfileFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public JPanel panel = new JPanel();
+	public JLayeredPane panel = new JLayeredPane();
 	public static AddProfileFrame instance = null;
 	public List<String> list = new ArrayList<String>();
 	public HashMap<String, JTextField> mapField = new HashMap<String, JTextField>();
 
 	public ProfileList profilelist = new ProfileList(Main.profiles);
-	public SuperButton ok = new SuperButton("", Variable.resourcePath
-			+ "button_launch");
-	public SuperButton edit = new SuperButton("", Variable.resourcePath
-			+ "button_launch");
-	public SuperButton delete = new SuperButton("", Variable.resourcePath
-			+ "button_launch");
-	public SuperButton add = new SuperButton("", Variable.resourcePath
-			+ "button_launch");
-	public int index = 5;
+	public SuperButton ok;
+	public SuperButton edit;
+	public SuperButton delete;
+	public SuperButton add;
+	public int index = 3;
 
 	
 	
@@ -57,7 +51,7 @@ public class AddProfileFrame extends JFrame {
 	public AddProfileFrame() {
 		instance = this;
 
-		profilelist.setBounds(40+(114*1+5)/2, 60, 114, 32);
+		profilelist.setBounds((114*1+5)/2, 60, 114, 26);
 		panel.add(profilelist);
 		setSize(319, 439);
 		setUndecorated(true);
@@ -65,10 +59,10 @@ public class AddProfileFrame extends JFrame {
 		icon();
 
 		createPanel();
-		actionButton(40, getHeight() - 50, "Ok", ok);
-		actionButton(40+114*1+5,100, "Create", add);
-		actionButton(40,100, "Edit", edit);
-		actionButton(40+(114*1+5)/2,132, "Delete", delete);
+		panel.add(ok = new SuperButton(40, getHeight() - 50,114, 27,"Ok", Variable.resourcePath + "button_launch",panel));
+		panel.add(add = new SuperButton(1*31+159,60,26, 26,"", Variable.resourcePath + "button_add",null));
+		panel.add(edit = new SuperButton(2*31+159,60,26, 26,"", Variable.resourcePath + "button_edit",null));
+		panel.add(delete = new SuperButton(3*31+159,60,26, 26,"", Variable.resourcePath + "button_delete",null));
 		
 		ok.addMouseListener(new MouseListener() {
 			@Override
@@ -120,7 +114,7 @@ public class AddProfileFrame extends JFrame {
 
 		add(panel);
 
-		setLocationRelativeTo(MainFrame.instance.getFrame());
+		setLocationRelativeTo(Main.getFrame());
 
 		addMouseMotionListener(new MouseMotionListener() {
 
@@ -169,47 +163,6 @@ public class AddProfileFrame extends JFrame {
 		panel.setBounds(0, 0, getWidth(), getHeight());
 		panel.setLayout(null);
 		panel.setOpaque(false);
-	}
-
-	private void actionButton(int x, int y, String text, final SuperButton button) {
-
-		button.setBounds(x, y, 114, 27);
-		final LabelLaunch label = new LabelLaunch(text, x, y, 114, 27);
-		button.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				button.setIcon(button.getOverIcon());
-				label.mouseReleased();
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				button.setIcon(button.getDownIcon());
-				label.mousePressed();
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				button.setIcon(button.getUpIcon());
-				label.mouseExited();
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				button.setIcon(button.getOverIcon());
-				label.mouseEntered();
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-
-			}
-		});
-
-		panel.add(label);
-		panel.add(button);
-
 	}
 
 	public void topAndBot() {
