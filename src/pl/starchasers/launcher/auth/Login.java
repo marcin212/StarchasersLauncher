@@ -7,7 +7,8 @@ import java.util.HashMap;
 import javax.swing.JComponent;
 
 import pl.starchasers.launcher.Main;
-import pl.starchasers.launcher.skin.components.SuperButton;
+import pl.starchasers.launcher.skin.SuperButton;
+import pl.starchasers.launcher.skin.SuperTextField;
 import pl.starchasers.launcher.skin.frame.playerskin.PlayerSkin;
 import pl.starchasers.launcher.skin.frame.playerskin.labelHello;
 import pl.starchasers.launcher.utils.Config;
@@ -77,7 +78,7 @@ public class Login {
 		elements.get("PASSWORD").setVisible(visible);
 		elements.get("BG_PASSWD").setVisible(visible);
 		elements.get("LOGIN").setVisible(visible);
-		elements.get("BG_LOGIN").setVisible(visible);
+		((SuperTextField)elements.get("LOGIN")).getLabeltextfield().setVisible(visible);
 		elements.get("PLAYER_SKIN").setVisible(!visible);
 		elements.get("LABEL_HELLO").setVisible(!visible);
 		elements.get("LOGOUT").setVisible(!visible);

@@ -10,13 +10,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
-import pl.starchasers.launcher.skin.components.MyMainPanel;
+import pl.starchasers.launcher.skin.panels.BgLayer;
+import pl.starchasers.launcher.skin.panels.Contents;
 import pl.starchasers.launcher.utils.Variable;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private int x,y;
-	private MyMainPanel panel;
+	private Contents panel;
 	public MainFrame() {
 		super();
 		setSize(new Dimension(854,480));
@@ -26,8 +27,11 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setUndecorated(true);
-		panel = new MyMainPanel();
+		panel = new Contents();
 		getContentPane().add(panel);
+		getContentPane().add(panel.iconLayer);
+		
+		
 		Image im =new ImageIcon(MainFrame.class.getResource(Variable.resourcePath+"icon_512.png")).getImage();
 		setIconImage(im);
 		setFocusable(true);
@@ -80,10 +84,10 @@ public class MainFrame extends JFrame {
 			}
 		});
 	}
-	public MyMainPanel getPanel() {
+	public Contents getPanel() {
 		return panel;
 	}
-	public void setPanel(MyMainPanel panel) {
+	public void setPanel(Contents panel) {
 		this.panel = panel;
 	}
 	

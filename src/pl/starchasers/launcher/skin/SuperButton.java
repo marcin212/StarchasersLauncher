@@ -1,11 +1,12 @@
-package pl.starchasers.launcher.skin.components;
+package pl.starchasers.launcher.skin;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+
 
 public class SuperButton extends JButton{
 	private static final long serialVersionUID = 1L;
@@ -15,7 +16,7 @@ public class SuperButton extends JButton{
 	private ImageIcon downIcon;
 	private SuperLabelButton buttonLabel;
 
-	public SuperButton(int x, int y, int width, int height, String name, String path, JPanel panel){
+	public SuperButton(int x, int y, int width, int height, String name, String path, JLayeredPane panel){
 		super("");
 		this.path=path;
 		setOpaque(false);
@@ -53,7 +54,7 @@ public class SuperButton extends JButton{
 	public void setTextLabel(String text){
 		getButtonLabel().setText(text);
 	}
-	private void addActionOnMouse(final JPanel panel){
+	private void addActionOnMouse(final JLayeredPane panel){
 		this.addMouseListener(new MouseListener() {
 			
 			@Override

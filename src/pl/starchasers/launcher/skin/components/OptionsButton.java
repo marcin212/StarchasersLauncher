@@ -2,6 +2,8 @@ package pl.starchasers.launcher.skin.components;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import pl.starchasers.launcher.skin.SuperButton;
 import pl.starchasers.launcher.skin.frame.OptionsFrame;
 import pl.starchasers.launcher.utils.Variable;
 

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.URL;
 
 
-import pl.starchasers.launcher.skin.components.SuperButton;
 import pl.starchasers.launcher.utils.Variable;
 
 public class MyFont {

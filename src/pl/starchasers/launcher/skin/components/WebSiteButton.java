@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import pl.starchasers.launcher.skin.SuperButton;
 import pl.starchasers.launcher.utils.Variable;
 
 public class WebSiteButton extends SuperButton {

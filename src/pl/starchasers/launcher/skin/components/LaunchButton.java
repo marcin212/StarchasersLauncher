@@ -3,19 +3,18 @@ package pl.starchasers.launcher.skin.components;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 
 import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.launch.Launch;
 import pl.starchasers.launcher.launch.Run;
+import pl.starchasers.launcher.skin.SuperButton;
 import pl.starchasers.launcher.utils.Variable;
 
 public class LaunchButton extends SuperButton{
 	private static final long serialVersionUID = 1L;
-	public static LaunchButton instance;
-	public LaunchButton(JPanel panel) {
+	public LaunchButton(JLayeredPane panel) {
 		super(493, 386, 114, 27,"Launch", Variable.resourcePath+"button_launch",panel);
-		instance = this;
 		addMouseListener(new MouseListener() {
 			
 			@Override

@@ -12,18 +12,16 @@ import pl.starchasers.launcher.skin.MyFont;
 public class ActionLabel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	List<JLabel> downladingFiles = new ArrayList<JLabel>();
-	public static ActionLabel instance;
 	private JLabel percent = new JLabel();
 	private JLabel action = new JLabel();
 	public ActionLabel() {
-		instance = this;
 		setLayout(null);
 		setOpaque(false);
 		setBounds(185,35,300,200);
 		initDownloadingFilesList();
 		for(int i = 0;i<downladingFiles.size();i++){
 			add(downladingFiles.get(i));
-			}
+		}
 		add(percent);
 		add(action);
 	}

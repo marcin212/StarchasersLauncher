@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 
 import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.MyFont;
+import pl.starchasers.launcher.skin.SuperButton;
 import pl.starchasers.launcher.skin.components.BgUserNameTextField;
 import pl.starchasers.launcher.skin.components.LabelLaunch;
-import pl.starchasers.launcher.skin.components.SuperButton;
 import pl.starchasers.launcher.skin.components.ProfileList;
 import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;

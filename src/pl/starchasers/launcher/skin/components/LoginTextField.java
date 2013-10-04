@@ -1,6 +1,5 @@
 package pl.starchasers.launcher.skin.components;
 
-import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -9,27 +8,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.UUID;
 
-import javax.swing.JTextField;
-
+import javax.swing.JLayeredPane;
 
 import pl.starchasers.launcher.launch.Launch;
 import pl.starchasers.launcher.launch.Run;
-import pl.starchasers.launcher.skin.MyFont;
+import pl.starchasers.launcher.skin.SuperTextField;
 import pl.starchasers.launcher.utils.Config;
 
-public class LoginTextField extends JTextField {
+public class LoginTextField extends SuperTextField{
 	private static final long serialVersionUID = 1L;
-	public static LoginTextField instance;
 	
-	public LoginTextField() {
-		super(Config.instance.getProperty("nickname").length()!=0 ? Config.instance.getProperty("nickname"):"Username");
-		instance = this;
-		setBounds(510, 277, 152, 27);
-		setForeground(new Color(84, 91, 100));
-		setFont(new MyFont().returnFont());
-		setOpaque(false);
-		setColumns(10);
-		setBorder(null);
+	public LoginTextField(JLayeredPane panel) {
+		super(Config.instance.getProperty("nickname").length()!=0 ? Config.instance.getProperty("nickname"):"Username", 510, 277, 152, 27,panel);
 		addMouseListener(new MouseListener() {
 
 			@Override
@@ -83,8 +73,8 @@ public class LoginTextField extends JTextField {
 			public void keyReleased(KeyEvent e) {
 
 				if(e.getKeyCode()==112){
-					Config.instance.setProperty("nickname", LoginTextField.instance.getText());
-					Launch.name = LoginTextField.instance.getText();
+					Config.instance.setProperty("nickname", getText());
+					Launch.name = getText();
 					Launch.token = UUID.randomUUID().toString(); 
 					Run.start();
 					}
