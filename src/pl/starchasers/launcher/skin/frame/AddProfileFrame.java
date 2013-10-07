@@ -1,6 +1,8 @@
 package pl.starchasers.launcher.skin.frame;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,10 +17,11 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
 import pl.starchasers.launcher.Main;
+import pl.starchasers.launcher.profiles.Profile;
 import pl.starchasers.launcher.skin.MyFont;
 import pl.starchasers.launcher.skin.SuperButton;
 import pl.starchasers.launcher.skin.components.ProfileList;
-import pl.starchasers.launcher.utils.Config;
+import pl.starchasers.launcher.skin.panels.Contents;
 import pl.starchasers.launcher.utils.Variable;
 
 public class AddProfileFrame extends JFrame {
@@ -27,12 +30,14 @@ public class AddProfileFrame extends JFrame {
 	public static AddProfileFrame instance = null;
 	public List<String> list = new ArrayList<String>();
 	public HashMap<String, JTextField> mapField = new HashMap<String, JTextField>();
-
-	public ProfileList profilelist = new ProfileList(Main.profiles);
+	public String lastSelectedName;
+	public HashMap<String, Profile> lastRemovedProfile = new HashMap<String, Profile>();
+	public ProfileList profilelist = new ProfileList(Main.getProfiles());
 	public SuperButton ok;
 	public SuperButton edit;
 	public SuperButton delete;
 	public SuperButton add;
+	public SuperButton save;
 	public int index = 3;
 
 	
@@ -47,12 +52,47 @@ public class AddProfileFrame extends JFrame {
 	private JTextField jvmargs;
 
 	private int x, y;
-
-	public AddProfileFrame() {
-		instance = this;
-
+	public void lista (){
 		profilelist.setBounds((114*1+5)/2, 60, 114, 26);
 		panel.add(profilelist);
+		profilelist.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Profile selectedProfile = Main.getProfiles().getProfileByName(profilelist.getSelectedItem().toString());
+				if(selectedProfile != null){
+						
+						minecraftversion.setText(selectedProfile.getMinecraftversion());
+					 	profilname.setText(profilelist.getSelectedItem().toString());
+					 	syncserver.setText(selectedProfile.getSyncserver());
+					  	xms.setText(selectedProfile.getXms());
+					  	xmx.setText(selectedProfile.getXmx());
+					  	permgen.setText(selectedProfile.getPermgen());
+					  	jvmargs.setText(selectedProfile.getJvmargs());
+					  	lastSelectedName = profilelist.getSelectedItem().toString();
+					 
+				}
+				
+			}
+		});
+	}
+	public void repaintlist(){
+	  	panel.remove(panel.getIndexOf(profilelist));
+	  	profilelist = new ProfileList(Main.getProfiles());
+	  	lista();
+	  	panel.moveToFront(profilelist);
+	  	Contents mainPanel = Main.getFrame().getPanel();
+	  	mainPanel.remove(mainPanel.getListProfile());
+	  	mainPanel.setListProfile(new ProfileList(Main.getProfiles()));
+	  	mainPanel.add(mainPanel.getListProfile());
+	  	mainPanel.moveToFront(mainPanel.getListProfile());
+	  	mainPanel.repaint();
+	  	panel.repaint();
+	}
+	public AddProfileFrame() {
+		instance = this;
+		lista();
+
 		setSize(319, 439);
 		setUndecorated(true);
 		setBackground(new Color(0f, 0f, 0f, 0f));
@@ -61,8 +101,163 @@ public class AddProfileFrame extends JFrame {
 		createPanel();
 		panel.add(ok = new SuperButton(40, getHeight() - 50,114, 27,"Ok", Variable.resourcePath + "button_launch",panel));
 		panel.add(add = new SuperButton(1*31+159,60,26, 26,"", Variable.resourcePath + "button_add",null));
-		panel.add(edit = new SuperButton(2*31+159,60,26, 26,"", Variable.resourcePath + "button_edit",null));
-		panel.add(delete = new SuperButton(3*31+159,60,26, 26,"", Variable.resourcePath + "button_delete",null));
+		//panel.add(edit = new SuperButton(2*31+159,60,26, 26,"", Variable.resourcePath + "button_edit",null));
+		panel.add(delete = new SuperButton(2*31+159,60,26, 26,"", Variable.resourcePath + "button_delete",null));
+		
+		panel.add(save = new SuperButton((114*1+5)/2,350,114, 27,"Save", Variable.resourcePath + "button_launch",panel));
+		delete.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				Profile selectedProfile = Main.getProfiles().getProfileByName(profilelist.getSelectedItem().toString());
+				if(selectedProfile != null){
+					Main.getProfiles().deleteProfile(profilelist.getSelectedItem().toString());	
+				}
+				repaintlist();
+				selectedProfile = Main.getProfiles().getProfileByName(profilelist.getSelectedItem().toString());
+				if(selectedProfile != null){
+						
+						minecraftversion.setText(selectedProfile.getMinecraftversion());
+					 	profilname.setText(profilelist.getSelectedItem().toString());
+					 	syncserver.setText(selectedProfile.getSyncserver());
+					  	xms.setText(selectedProfile.getXms());
+					  	xmx.setText(selectedProfile.getXmx());
+					  	permgen.setText(selectedProfile.getPermgen());
+					  	jvmargs.setText(selectedProfile.getJvmargs());
+					  	lastSelectedName = profilelist.getSelectedItem().toString();
+					 
+				}
+				repaintlist();
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		add.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lastSelectedName = null;
+				minecraftversion.setText("");
+			 	profilname.setText("");
+			 	syncserver.setText("");
+			  	xms.setText("");
+			  	xmx.setText("");
+			  	permgen.setText("");
+			  	jvmargs.setText("");
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+		save.addMouseListener(new MouseListener() {
+
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				Main.getProfiles().deleteProfile(lastSelectedName);
+				Profile lastSelectedProfile;
+				lastSelectedProfile = new Profile();
+				lastSelectedProfile.setMinecraftversion(minecraftversion.getText());
+			 	lastSelectedProfile.setSyncserver(syncserver.getText());
+			  	lastSelectedProfile.setXms(xms.getText());
+			  	lastSelectedProfile.setXmx(xmx.getText());
+			  	lastSelectedProfile.setPermgen(permgen.getText());
+			  	lastSelectedProfile.setJvmargs(jvmargs.getText());
+			  	String profilnametoset = profilname.getText();
+			  	int i =1;
+			  	while(true){
+			  	if(Main.getProfiles().getProfileByName(profilnametoset)==null){
+			  		Main.getProfiles().addProfile(profilnametoset, lastSelectedProfile);
+			  		Main.getProfiles().saveProfiles();
+			  		System.out.println("Pomyslnie dodano");
+			  		break;
+			  		}else{
+			  			profilnametoset = profilnametoset + i;
+			  			i++;
+			  		}
+			  	}
+			  	
+				minecraftversion.setText("");
+			 	profilname.setText("");
+			 	syncserver.setText("");
+			  	xms.setText("");
+			  	xmx.setText("");
+			  	permgen.setText("");
+			  	jvmargs.setText("");
+			  	repaintlist();
+			  	
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		ok.addMouseListener(new MouseListener() {
 			@Override
@@ -113,7 +308,19 @@ public class AddProfileFrame extends JFrame {
 		background();
 
 		add(panel);
-
+		Profile selectedProfile = Main.getProfiles().getProfileByName(profilelist.getSelectedItem().toString());
+		if(selectedProfile != null){
+				
+				minecraftversion.setText(selectedProfile.getMinecraftversion());
+			 	profilname.setText(profilelist.getSelectedItem().toString());
+			 	syncserver.setText(selectedProfile.getSyncserver());
+			  	xms.setText(selectedProfile.getXms());
+			  	xmx.setText(selectedProfile.getXmx());
+			  	permgen.setText(selectedProfile.getPermgen());
+			  	jvmargs.setText(selectedProfile.getJvmargs());
+			  	lastSelectedName = profilelist.getSelectedItem().toString();
+			 
+		}
 		setLocationRelativeTo(Main.getFrame());
 
 		addMouseMotionListener(new MouseMotionListener() {
@@ -201,7 +408,7 @@ public class AddProfileFrame extends JFrame {
 		panel.add(icon);
 	}
 
-	public JTextField standardTextfield(String info) {
+	private JTextField standardTextfield(String info) {
 		JTextField standardTextfield = new JTextField();
 		JLabel bgstd = new JLabel();
 		JLabel infostd = new JLabel(info);
@@ -242,7 +449,7 @@ public class AddProfileFrame extends JFrame {
 		xms.setFont(new MyFont().returnFont());
 		xms.setOpaque(false);
 		xms.setBorder(null);
-		xms.setText(Config.instance.getProperty("Xms"));
+		xms.setText(Main.getConf().getProperty("Xms"));
 		infoxms.setForeground(new Color(84, 91, 100));
 		panel.add(xms);
 		panel.add(bgxms);
@@ -259,7 +466,7 @@ public class AddProfileFrame extends JFrame {
 		xmx.setFont(new MyFont().returnFont());
 		xmx.setOpaque(false);
 		xmx.setBorder(null);
-		xmx.setText(Config.instance.getProperty("Xmx"));
+		xmx.setText(Main.getConf().getProperty("Xmx"));
 		panel.add(xmx);
 		panel.add(bgxmx);
 		panel.add(infoxmx);

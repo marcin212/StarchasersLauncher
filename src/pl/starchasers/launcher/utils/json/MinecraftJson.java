@@ -1,6 +1,6 @@
 package pl.starchasers.launcher.utils.json;
 
-import pl.starchasers.launcher.utils.Config;
+import pl.starchasers.launcher.Main;
 
 import com.google.gson.Gson;
 
@@ -35,7 +35,7 @@ public class MinecraftJson {
 	}
 	public void addForgeLibraries(Version ver){
 		Gson gson = new Gson();
-		String json = Http.excuteGet(Config.instance.getProperty("sync-server")+"forgelibs.json");
+		String json = Http.excuteGet(Main.getConf().getProperty("sync-server")+"forgelibs.json");
 		libsforge = gson.fromJson(json, ForgeLibs.class);
 		
 		for(int i=0;i<libsforge.getLibs().size();i++){

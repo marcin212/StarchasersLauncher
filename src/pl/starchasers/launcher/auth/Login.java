@@ -7,7 +7,6 @@ import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.frame.playerskin.PlayerSkin;
 import pl.starchasers.launcher.skin.frame.playerskin.labelHello;
 import pl.starchasers.launcher.skin.panels.Contents;
-import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Http;
 import pl.starchasers.launcher.utils.Variable;
 
@@ -30,11 +29,11 @@ public class Login {
 		Response response = null;
 		try {
 			response = gson.fromJson(Http.executeHttpRequestE(urlauthentication, gson.toJson(payload), "POST", "application/json"), Response.class);
-			Config.instance.setProperty("clientToken",response.getClientToken());
-			Config.instance.setProperty("playerUUID", response.getSelectedProfile().getId());
-			Config.instance.setProperty("accessToken", response.getAccessToken());			
-			Config.instance.setProperty("nickname", response.getSelectedProfile().getName());	
-			Config.instance.store(Variable.propertiesPath);			
+			Main.getConf().setProperty("clientToken",response.getClientToken());
+			Main.getConf().setProperty("playerUUID", response.getSelectedProfile().getId());
+			Main.getConf().setProperty("accessToken", response.getAccessToken());			
+			Main.getConf().setProperty("nickname", response.getSelectedProfile().getName());	
+			Main.getConf().store(Variable.propertiesPath);			
 			PlayerSkin.instance.setSkin(response.getSelectedProfile().getName());
 			labelHello.instance.setUserName(response.getSelectedProfile().getName());
 			hiddenTextfield(false);
@@ -48,14 +47,14 @@ public class Login {
 	public static Response loginInWithToken(String token){
 		hiddenTextfield(false);
 		Response query = new Response();
-		query.setAccessToken(Config.instance.getProperty("accessToken"));
-		query.setClientToken(Config.instance.getProperty("clientToken"));
+		query.setAccessToken(Main.getConf().getProperty("accessToken"));
+		query.setClientToken(Main.getConf().getProperty("clientToken"));
 		Response response = null;
 		try {
 			response = gson.fromJson(Http.executeHttpRequestE(urlrefresh, gson.toJson(query), "POST", "application/json"), Response.class);
-			Config.instance.setProperty("accessToken", response.getAccessToken());
-			Config.instance.setProperty("nickname", response.getSelectedProfile().getName());	
-			Config.instance.store(Variable.propertiesPath);
+			Main.getConf().setProperty("accessToken", response.getAccessToken());
+			Main.getConf().setProperty("nickname", response.getSelectedProfile().getName());	
+			Main.getConf().store(Variable.propertiesPath);
 			PlayerSkin.instance.setSkin(response.getSelectedProfile().getName());
 			labelHello.instance.setUserName(response.getSelectedProfile().getName());
 		} catch (JsonSyntaxException | IOException e) {

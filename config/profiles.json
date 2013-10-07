@@ -1,1 +1,7 @@
-[{"minecraftversion":"1.6.4","profilname":"Default","xms":"128M","xmx":"512M"}]
+{
+  "default": {
+    "minecraftversion": "1.6.4",
+    "xms": "128M",
+    "xmx": "512M"
+  }
+}

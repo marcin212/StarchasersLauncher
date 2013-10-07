@@ -9,9 +9,7 @@ import java.util.UUID;
 
 public class Config extends Properties{
 	private static final long serialVersionUID = 1L;
-	public static Config instance;
 	public Config(String path) {
-		instance = this;
 		this.putAll(DefConfig());
 		File f = new File(path);
 		if (f.exists() && f.isFile()) {
@@ -38,21 +36,16 @@ public class Config extends Properties{
 			e.printStackTrace();
 		}
 	}
-	private static Properties DefConfig() {
+	private Properties DefConfig() {
 		Properties p = new Properties();
 		p.setProperty("Width", "800");
 		p.setProperty("Height", "600");
-		p.setProperty("Xms", "512M");
-		p.setProperty("Xmx", "1024M");
-		p.setProperty("PermGen", "128M");
-		p.setProperty("AddJVMArgs", "");
 		p.setProperty("clientToken", "");
 		p.setProperty("playerUUID", "");
 		p.setProperty("accessToken", "");
 		p.setProperty("forceupdate", "true");
+		p.setProperty("console", "true");
 		p.setProperty("nickname","");
-		p.setProperty("vanilla","false");
-		p.setProperty("sync-server", "http://starchasers.pl/starchasers/");
 		return p;
 	}
 	public void setPropertyInt(String key, int value) {

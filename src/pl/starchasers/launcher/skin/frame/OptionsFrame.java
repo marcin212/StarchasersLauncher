@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.MyFont;
 import pl.starchasers.launcher.skin.SuperButton;
-import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class OptionsFrame extends JFrame{
@@ -57,11 +56,11 @@ public class OptionsFrame extends JFrame{
 
 		
 		jvm = standardTextfield("JVM:");
-		jvm.setText(Config.instance.getProperty("AddJVMArgs"));
+		jvm.setText(Main.getConf().getProperty("AddJVMArgs"));
 		permgen = standardTextfield("PermGenSize:");
-		permgen.setText(Config.instance.getProperty("PermGen"));
+		permgen.setText(Main.getConf().getProperty("PermGen"));
 		sync = standardTextfield("Sync-Server:");
-		sync.setText(Config.instance.getProperty("sync-server"));	
+		sync.setText(Main.getConf().getProperty("sync-server"));	
 		buttonforceupdate();
 		labeloptions();
 		topAndBot();	
@@ -149,12 +148,12 @@ public class OptionsFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 		
-				Config.instance.setProperty("Xms", xms.getText().trim());
-				Config.instance.setProperty("Xmx", xmx.getText().trim());
-				Config.instance.setProperty("PermGen", permgen.getText().trim());
-				Config.instance.setProperty("AddJVMArgs", jvm.getText().trim());
-				Config.instance.setProperty("sync-server", sync.getText().trim());
-				Config.instance.store(Variable.workingDir + "starchasers.properties");
+				Main.getConf().setProperty("Xms", xms.getText().trim());
+				Main.getConf().setProperty("Xmx", xmx.getText().trim());
+				Main.getConf().setProperty("PermGen", permgen.getText().trim());
+				Main.getConf().setProperty("AddJVMArgs", jvm.getText().trim());
+				Main.getConf().setProperty("sync-server", sync.getText().trim());
+				Main.getConf().store(Variable.workingDir + "starchasers.properties");
 				
 				instance =null;
 				dispose();
@@ -228,7 +227,7 @@ public void memoryTextField(){
 	xms.setFont(new MyFont().returnFont());
 	xms.setOpaque(false);
 	xms.setBorder(null);
-	xms.setText(Config.instance.getProperty("Xms"));
+	xms.setText(Main.getConf().getProperty("Xms"));
 	infoxms.setForeground(new Color(84, 91, 100));
 	panel.add(xms);
 	panel.add(bgxms);
@@ -245,7 +244,7 @@ public void memoryTextField(){
 	xmx.setFont(new MyFont().returnFont());
 	xmx.setOpaque(false);
 	xmx.setBorder(null);
-	xmx.setText(Config.instance.getProperty("Xmx"));
+	xmx.setText(Main.getConf().getProperty("Xmx"));
 	panel.add(xmx);
 	panel.add(bgxmx);
 	panel.add(infoxmx);
@@ -291,7 +290,7 @@ public void buttonforceupdate(){
 		
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			Config.instance.setProperty("forceupdate","true");
+			Main.getConf().setProperty("forceupdate","true");
 		}
 	});
 	panel.add(force);

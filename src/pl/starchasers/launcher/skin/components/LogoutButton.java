@@ -8,7 +8,6 @@ import javax.swing.JLayeredPane;
 import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.skin.SuperButton;
-import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class LogoutButton extends SuperButton {
@@ -36,7 +35,7 @@ public class LogoutButton extends SuperButton {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Config.instance.setProperty("accessToken", "");
+				Main.getConf().setProperty("accessToken", "");
 				Login.setCanRun(false);
 				Login.setStatus(true);
 				((LaunchButton)Main.getFrame().getPanel().getButtonLaunch()).getButtonLabel().setText("Log in");

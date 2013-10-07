@@ -9,8 +9,8 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
+import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.MyFont;
-import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class CheckBox extends JCheckBox {
@@ -29,7 +29,7 @@ public class CheckBox extends JCheckBox {
 		setContentAreaFilled(false);
 		setFocusable(false);
 		
-		setSelected(Config.instance.getProperty("vanilla").equals("true"));
+		setSelected(Main.getConf().getProperty("vanilla").equals("true"));
 		setIcon(new ImageIcon(
 				CheckBox.class.getResource(Variable.resourcePath
 						+ "check_off_up.png")));
@@ -76,11 +76,11 @@ public class CheckBox extends JCheckBox {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (isSelected()) {
-                	Config.instance.setProperty("vanilla", "true");
+                	Main.getConf().setProperty("vanilla", "true");
                 } else {
-                	Config.instance.setProperty("vanilla", "false");
+                	Main.getConf().setProperty("vanilla", "false");
                 }
-                Config.instance.store(Variable.workingDir + "starchasers.properties");
+                Main.getConf().store(Variable.workingDir + "starchasers.properties");
             }
         });
 	}

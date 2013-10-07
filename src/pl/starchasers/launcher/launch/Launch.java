@@ -4,7 +4,6 @@ import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.auth.Response;
 import pl.starchasers.launcher.skin.panels.Contents;
-import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
 import pl.starchasers.launcher.utils.json.Version;
 
@@ -16,8 +15,7 @@ public class Launch {
 	public static void login() {
 		elements.getActionLabel().setAction("logging in...");
 		elements.getButtonLaunch().setTextLabel("Logging in");
-		Response response = Login.loginInWithToken(Config.instance
-				.getProperty("accessToken"));
+		Response response = Login.loginInWithToken(Main.getConf().getProperty("accessToken"));
 
 		if (response != null) {
 			elements.getActionLabel().setAction("launch minecraft!");
@@ -66,6 +64,6 @@ public class Launch {
 		}
 
 		new LaunchWrapper(token,ver,name);
-		Config.instance.setProperty("forceupdate","false");
+		Main.getConf().setProperty("forceupdate","false");
 	}
 }

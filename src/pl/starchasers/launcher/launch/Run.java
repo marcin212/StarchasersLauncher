@@ -9,8 +9,8 @@ public class Run {
 		 launch = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				System.setOut(Main.console.getOut());
-				System.setErr(Main.console.getOut());
+				System.setOut(Main.getConsole().getOut());
+				System.setErr(Main.getConsole().getOut());
 				Launch.runMinecraft();
 			}
 		});

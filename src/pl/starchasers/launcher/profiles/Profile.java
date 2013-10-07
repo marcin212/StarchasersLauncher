@@ -2,7 +2,6 @@ package pl.starchasers.launcher.profiles;
 
 public class Profile {
 	private String minecraftversion;
-	private String profilname;
 	private String syncserver;
 	private String xms;
 	private String xmx;
@@ -15,14 +14,6 @@ public class Profile {
 
 	public void setMinecraftversion(String minecraftversion) {
 		this.minecraftversion = minecraftversion;
-	}
-
-	public String getProfilname() {
-		return profilname;
-	}
-
-	public void setProfilname(String profilname) {
-		this.profilname = profilname;
 	}
 
 	public String getSyncserver() {

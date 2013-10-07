@@ -51,7 +51,7 @@ public class Contents extends JLayeredPane {
 		add(buttonOptions = new OptionsButton());
 		add(buttonWeb = new WebSiteButton());
 		add(buttonLaunch = new LaunchButton(this));
-		add(listProfile = new ProfileList(Main.profiles));
+		add(listProfile = new ProfileList(Main.getProfiles()));
 		add(textFieldUsername = new LoginTextField(iconLayer));
 		add(textfieldPassword = new PasswordTextField(iconLayer));
 		add(buttonLogOut = new LogoutButton(this));
@@ -133,6 +133,74 @@ public class Contents extends JLayeredPane {
 
 	public ManageProfilesButton getButtonManageProfiles() {
 		return buttonManageProfiles;
+	}
+
+	public BgLayer getIconLayer() {
+		return iconLayer;
+	}
+
+	public void setIconLayer(BgLayer iconLayer) {
+		this.iconLayer = iconLayer;
+	}
+
+	public void setBg(JLabel bg) {
+		this.bg = bg;
+	}
+
+	public void setButtonClose(ButtonClose buttonClose) {
+		this.buttonClose = buttonClose;
+	}
+
+	public void setButtonOptions(OptionsButton buttonOptions) {
+		this.buttonOptions = buttonOptions;
+	}
+
+	public void setButtonWeb(WebSiteButton buttonWeb) {
+		this.buttonWeb = buttonWeb;
+	}
+
+	public void setButtonLaunch(LaunchButton buttonLaunch) {
+		this.buttonLaunch = buttonLaunch;
+	}
+
+	public void setListProfile(ProfileList listProfile) {
+		this.listProfile = listProfile;
+	}
+
+	public void setTextFieldUsername(LoginTextField textFieldUsername) {
+		this.textFieldUsername = textFieldUsername;
+	}
+
+	public void setTextfieldPassword(PasswordTextField textfieldPassword) {
+		this.textfieldPassword = textfieldPassword;
+	}
+
+	public void setButtonLogOut(LogoutButton buttonLogOut) {
+		this.buttonLogOut = buttonLogOut;
+	}
+
+	public void setCopyrights(CopyrightLabel copyrights) {
+		this.copyrights = copyrights;
+	}
+
+	public void setActionLabel(ActionLabel actionLabel) {
+		this.actionLabel = actionLabel;
+	}
+
+	public void setProgressbar(MyProgressBar progressbar) {
+		this.progressbar = progressbar;
+	}
+
+	public void setLabelHello(labelHello labelHello) {
+		this.labelHello = labelHello;
+	}
+
+	public void setPlayerSkin(PlayerSkin playerSkin) {
+		this.playerSkin = playerSkin;
+	}
+
+	public void setButtonManageProfiles(ManageProfilesButton buttonManageProfiles) {
+		this.buttonManageProfiles = buttonManageProfiles;
 	}
 
 }

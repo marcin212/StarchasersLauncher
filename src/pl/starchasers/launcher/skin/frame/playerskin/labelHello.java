@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
+import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.MyFont;
-import pl.starchasers.launcher.utils.Config;
 
 public class labelHello extends JLabel{
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class labelHello extends JLabel{
 	}
 
 	public void setUserName() {
-		labelHello.instance.setText("Hi, "+ Config.instance.getProperty("nickname"));
+		labelHello.instance.setText("Hi, "+ Main.getConf().getProperty("nickname"));
 	}
 	public void setUserName(String name) {
 		labelHello.instance.setText("Hi, "+ name);

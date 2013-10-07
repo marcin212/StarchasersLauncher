@@ -3,8 +3,8 @@ package pl.starchasers.launcher.skin.components;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.skin.SuperButton;
-import pl.starchasers.launcher.utils.Config;
 import pl.starchasers.launcher.utils.Variable;
 
 public class ButtonClose extends SuperButton{
@@ -35,7 +35,7 @@ public class ButtonClose extends SuperButton{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setIcon(getUpIcon());
-				Config.instance.store(Variable.workingDir + "starchasers.properties");
+				Main.getConf().store(Variable.workingDir + "starchasers.properties");
 				System.exit(0);
 			}
 		});
