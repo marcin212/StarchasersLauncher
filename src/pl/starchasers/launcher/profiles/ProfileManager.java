@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import pl.starchasers.launcher.utils.Http;
@@ -87,8 +88,9 @@ public class ProfileManager {
 	public void getProfileFromURL(String url) {
 		String response = Http.executeHttpRequest(url, "", "GET",
 				"application/json");
-		HashMap<String, Profile> profile = gson.fromJson(response, new TypeToken<Map<String,Profile>>(){}.getType());
+		HashMap<String, Profile> profile = gson.fromJson(response, new TypeToken<HashMap<String,Profile>>(){}.getType());
 		profileslist.putAll(profile);
+		saveProfiles();
 	}
 	
 	public void deleteProfile(String name){
@@ -103,6 +105,18 @@ public class ProfileManager {
 
 	public void setProfileslist(HashMap<String, Profile> profileslist) {
 		this.profileslist = profileslist;
+	}
+	
+	public void refreshRemoteProfile(Profile profile){
+		String url  = profile.getSyncserver() + "profile.json";
+		String response = Http.executeHttpRequest(url, "", "GET","application/json");
+		HashMap<String, Profile> remoteProfile = gson.fromJson(response, new TypeToken<HashMap<String,Profile>>(){}.getType());
+		for(Entry<String, Profile> p : remoteProfile.entrySet()){
+		System.out.println("forgeR"+p.getValue().getForgeName());
+		profile.setForgeName(p.getValue().getForgeName());
+		profile.setMinecraftversion(profile.getMinecraftversion());
+		}
+		saveProfiles();
 	}
 
 }

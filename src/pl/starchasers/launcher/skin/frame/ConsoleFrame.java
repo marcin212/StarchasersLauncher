@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class ConsoleFrame {
@@ -21,8 +22,10 @@ public class ConsoleFrame {
 	public ConsoleFrame() {
 		consoleframe = new JFrame();
 		console = new JTextArea(40, 30);
-		consoleframe.setSize(400, 300);
-		consoleframe.add(console);
+	    JScrollPane sbrText = new JScrollPane(console);
+	    sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		consoleframe.setSize(600, 300);
+		consoleframe.add(sbrText);
 		consoleframe.setVisible(true);
 	}
 

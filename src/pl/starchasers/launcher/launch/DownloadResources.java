@@ -42,8 +42,9 @@ public class DownloadResources {
 	                if (localMd5.equals(etag)) continue;
 	              }
 	            }
+	            if(!key.equals("READ_ME_I_AM_VERY_IMPORTANT"))
 	          DownloadJob.getList().add(
-	        		  new DownloadFile("https://s3.amazonaws.com/Minecraft.Resources/"+key, Variable.workingDir+"minecraft/"+"assets/"+key.substring(0,key.contains("/")?key.lastIndexOf("/"):key.length())));
+	        		  new DownloadFile("https://s3.amazonaws.com/Minecraft.Resources/"+key, Variable.workingDir+"minecraft/"+"assets/"+key.substring(0,key.contains("/")?key.lastIndexOf("/"):key.length()),null));
 	          }
 	        }
 	      }

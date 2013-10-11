@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import pl.starchasers.launcher.Main;
@@ -38,6 +40,7 @@ public class AddProfileFrame extends JFrame {
 	public SuperButton delete;
 	public SuperButton add;
 	public SuperButton save;
+	public SuperButton urladd;
 	public int index = 3;
 
 	
@@ -50,7 +53,7 @@ public class AddProfileFrame extends JFrame {
 	private JTextField xmx;
 	private JTextField permgen;
 	private JTextField jvmargs;
-
+	private JTextField forge;
 	private int x, y;
 	public void lista (){
 		profilelist.setBounds((114*1+5)/2, 60, 114, 26);
@@ -69,6 +72,7 @@ public class AddProfileFrame extends JFrame {
 					  	xmx.setText(selectedProfile.getXmx());
 					  	permgen.setText(selectedProfile.getPermgen());
 					  	jvmargs.setText(selectedProfile.getJvmargs());
+					  	forge.setText(selectedProfile.getForgeName());
 					  	lastSelectedName = profilelist.getSelectedItem().toString();
 					 
 				}
@@ -101,10 +105,47 @@ public class AddProfileFrame extends JFrame {
 		createPanel();
 		panel.add(ok = new SuperButton(40, getHeight() - 50,114, 27,"Ok", Variable.resourcePath + "button_launch",panel));
 		panel.add(add = new SuperButton(1*31+159,60,26, 26,"", Variable.resourcePath + "button_add",null));
-		//panel.add(edit = new SuperButton(2*31+159,60,26, 26,"", Variable.resourcePath + "button_edit",null));
 		panel.add(delete = new SuperButton(2*31+159,60,26, 26,"", Variable.resourcePath + "button_delete",null));
+		panel.add(urladd = new SuperButton(3*31+159,60,26, 26,"", Variable.resourcePath + "button_website",null));
+		panel.add(save = new SuperButton((114*1+5)/2,355,114, 27,"Save", Variable.resourcePath + "button_launch",panel));
 		
-		panel.add(save = new SuperButton((114*1+5)/2,350,114, 27,"Save", Variable.resourcePath + "button_launch",panel));
+		urladd.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				String inputValue = JOptionPane.showInputDialog("Please input a url to profile.json"); 
+				if(inputValue !=null && inputValue !="")
+					Main.getProfiles().getProfileFromURL(inputValue);
+				repaintlist();
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		
 		delete.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -124,6 +165,7 @@ public class AddProfileFrame extends JFrame {
 					  	xmx.setText(selectedProfile.getXmx());
 					  	permgen.setText(selectedProfile.getPermgen());
 					  	jvmargs.setText(selectedProfile.getJvmargs());
+					  	forge.setText(selectedProfile.getForgeName());
 					  	lastSelectedName = profilelist.getSelectedItem().toString();
 					 
 				}
@@ -166,6 +208,7 @@ public class AddProfileFrame extends JFrame {
 			  	xmx.setText("");
 			  	permgen.setText("");
 			  	jvmargs.setText("");
+			  	forge.setText("");
 				
 			}
 			
@@ -200,6 +243,7 @@ public class AddProfileFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
+				
 				Main.getProfiles().deleteProfile(lastSelectedName);
 				Profile lastSelectedProfile;
 				lastSelectedProfile = new Profile();
@@ -209,10 +253,12 @@ public class AddProfileFrame extends JFrame {
 			  	lastSelectedProfile.setXmx(xmx.getText());
 			  	lastSelectedProfile.setPermgen(permgen.getText());
 			  	lastSelectedProfile.setJvmargs(jvmargs.getText());
+			  	lastSelectedProfile.setForgeName(forge.getText());
 			  	String profilnametoset = profilname.getText();
 			  	int i =1;
 			  	while(true){
 			  	if(Main.getProfiles().getProfileByName(profilnametoset)==null){
+			  		lastSelectedProfile.setDir(profilnametoset);
 			  		Main.getProfiles().addProfile(profilnametoset, lastSelectedProfile);
 			  		Main.getProfiles().saveProfiles();
 			  		System.out.println("Pomyslnie dodano");
@@ -230,6 +276,7 @@ public class AddProfileFrame extends JFrame {
 			  	xmx.setText("");
 			  	permgen.setText("");
 			  	jvmargs.setText("");
+			  	forge.setText("");
 			  	repaintlist();
 			  	
 			}
@@ -302,6 +349,8 @@ public class AddProfileFrame extends JFrame {
 		xms.setText("");
 		xmx = standardTextfield("XMX:");
 		xmx.setText("");
+		forge = standardTextfield("Forge:");
+		forge.setText("");
 		
 		labeloptions();
 		topAndBot();
@@ -318,6 +367,7 @@ public class AddProfileFrame extends JFrame {
 			  	xmx.setText(selectedProfile.getXmx());
 			  	permgen.setText(selectedProfile.getPermgen());
 			  	jvmargs.setText(selectedProfile.getJvmargs());
+			  	forge.setText(selectedProfile.getForgeName());
 			  	lastSelectedName = profilelist.getSelectedItem().toString();
 			 
 		}

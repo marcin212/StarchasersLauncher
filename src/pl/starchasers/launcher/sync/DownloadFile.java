@@ -3,9 +3,11 @@ package pl.starchasers.launcher.sync;
 public class DownloadFile {
 	private String fileName;
 	private String dir;
-	public DownloadFile(String url, String folder) {
-		this.fileName = url;
+	private String url;
+	public DownloadFile(String url, String folder, String name) {
+		this.url = url;
 		this.dir = folder;
+		this.fileName = name;
 	}
 	public String getDir(){
 		return this.dir;
@@ -18,5 +20,11 @@ public class DownloadFile {
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

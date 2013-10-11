@@ -15,6 +15,9 @@ public class Main {
 	private static MainFrame frame;
 	private static Config conf;
 	public static void main(String[] args) {
+		
+		
+		
 		testDir(Variable.workingDir);
 		setConf(new Config(Variable.workingDir + "starchasers.properties"));
 		setFrame(new MainFrame());
@@ -22,8 +25,6 @@ public class Main {
 		System.setOut(getConsole().getOut());
 		System.setErr(getConsole().getOut());
 		
-		
-		//new ProfileManager();
 		Launch.login();
 
 		//Config.instance.store(Variable.workingDir + "starchasers.properties");

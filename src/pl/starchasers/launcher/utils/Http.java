@@ -30,13 +30,21 @@ public class Http {
 			return false;
 		}
 	}
-	public static void download(String fileURL, String destinationDirectory,float part){
+	public static void download(String fileURL, String destinationDirectory,String name,float part){
+		
+		
 		try{
-	 	String downloadedFileName = fileURL.substring(fileURL.lastIndexOf("/") + 1);
+			String downloadedFileName;
+			if(name ==null){
+				downloadedFileName = fileURL.substring(fileURL.lastIndexOf("/") + 1);
+			}else{
+				downloadedFileName = name;
+			}
 	 	elements.getActionLabel().addElement(downloadedFileName.replace("%20"," "));
 	 	elements.getActionLabel().setProgress(0);
         URL url=new URL(fileURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.addRequestProperty("User-Agent", "Mozilla/4.76");
         int filesize = connection.getContentLength();
         double startProgress = MyProgressBar.instance.getProgress();
         float totalDataRead=0;

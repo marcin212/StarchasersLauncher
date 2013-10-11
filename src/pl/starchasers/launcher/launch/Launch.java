@@ -3,14 +3,16 @@ package pl.starchasers.launcher.launch;
 import pl.starchasers.launcher.Main;
 import pl.starchasers.launcher.auth.Login;
 import pl.starchasers.launcher.auth.Response;
+import pl.starchasers.launcher.profiles.Profile;
 import pl.starchasers.launcher.skin.panels.Contents;
+import pl.starchasers.launcher.sync.Sync;
 import pl.starchasers.launcher.utils.json.MinecraftJson;
-import pl.starchasers.launcher.utils.json.Version;
 
 public class Launch {
 	public static String name = "";
 	public static Contents elements = Main.getFrame().getPanel();  
 	public static String token ="";
+	public static Profile currentProfile;
 
 	public static void login() {
 		elements.getActionLabel().setAction("logging in...");
@@ -51,19 +53,19 @@ public class Launch {
 	}
 
 	public static void runMinecraft() {
-		new MinecraftJson();
-		Version ver = MinecraftJson.instance.getObjForVersion("1.6.2");
-		elements.getActionLabel().setAction("checking files...");
-		new DownloadResources();
-		new CheckFiles();
-		elements.getActionLabel().setAction("launching minecraft...");
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		new LaunchWrapper(token,ver,name);
-		Main.getConf().setProperty("forceupdate","false");
+		currentProfile = Main.getProfiles().getProfileByName(elements.getListProfile().getSelectedItem().toString());
+		if (currentProfile.getSyncserver() == null || currentProfile.getSyncserver().length() ==0){
+			}else{
+			Main.getProfiles().refreshRemoteProfile(currentProfile);
+			new Sync(currentProfile);
+			}
+			elements.getActionLabel().setAction("checking files...");
+			new DownloadResources();
+			new MinecraftJson();
+			new CheckFiles(currentProfile);
+			elements.getActionLabel().setAction("launching minecraft...");
+			new LaunchWrapper(token,CheckFiles.ver,name,currentProfile);
+			Main.getConf().setProperty("forceupdate","false");
 	}
+
 }

@@ -17,7 +17,9 @@ public class Utils{
 		return "error";
 		
 	}
-	
+	public static String getSeparator(){
+		return System.getProperty("path.separator");	
+	}
 	public static void inheritIO(final InputStream src, final PrintStream dest) {
 	   Thread a = new Thread(new Runnable() {
 	        public void run() {
